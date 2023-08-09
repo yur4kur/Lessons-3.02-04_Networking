@@ -89,7 +89,7 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Networking
 extension UsersCollectionViewController {
     
-    // MARK: Get User
+    // MARK: Get Users
     private func fetchUsers(_ completionHandler: @escaping ([User]) -> Void) {
         guard let url = URL(string: baseURL + APIs.users.rawValue) else { return }
         

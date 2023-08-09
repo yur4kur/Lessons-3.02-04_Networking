@@ -7,9 +7,12 @@
 
 import UIKit
 
-class UserInfoTableViewController: UITableViewController {
+final class UserInfoTableViewController: UITableViewController {
     
+    // MARK: - Public property
     var user: User!
+    
+    // MARK: - Override methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +48,10 @@ class UserInfoTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo", for: indexPath)
         
@@ -74,8 +71,6 @@ class UserInfoTableViewController: UITableViewController {
         
         cell.contentConfiguration = cellContent
         
-
         return cell
     }
-
 }
