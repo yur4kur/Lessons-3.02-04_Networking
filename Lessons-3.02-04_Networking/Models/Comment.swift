@@ -6,9 +6,9 @@
 //
 
 struct Comment: Decodable {
-    var postId: Int
-    var id: Int
-    var name: String
-    var email: String
-    var body: String
+    let postId: Int
+    let id: Int
+    let name: String
+    let email: String
+    let body: String
 }

@@ -6,22 +6,23 @@
 //
 
 struct User: Decodable {
-    var id: Int
-    var name: String
-    var email: String
-    var address: Address
-    var company: Company
-    var phone: String
+    let id: Int
+    let name: String
+    let email: String
+    let address: Address
+    let company: Company
+    let phone: String
+    let website: String
     
     struct Address: Decodable {
-        var street: String
-        var city: String
-        var zipcode: String
+        let street: String
+        let city: String
+        let zipcode: String
     }
     
     struct Company: Decodable {
-        var name: String
-        var catchPhrase: String
-        var bs: String
+        let name: String
+        let catchPhrase: String
+        let bs: String
     }
 }

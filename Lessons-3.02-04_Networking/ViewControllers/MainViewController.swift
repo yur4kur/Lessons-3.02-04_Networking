@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    
+
     // MARK: - Types
-    
+
     enum APIs: String {
         case users
         case posts
@@ -18,21 +18,21 @@ final class MainViewController: UIViewController {
     }
 
     // MARK: - Private properties
-    
+
     private let baseURL = "https://jsonplaceholder.typicode.com/"
-    
+
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         fetchUsers()
     }
-    
+
     // MARK: - Private methods
-    
+
     private func fetchUsers() {
         guard let url = URL(string: baseURL + APIs.users.rawValue) else { return }
-        
+
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
@@ -47,13 +47,13 @@ final class MainViewController: UIViewController {
             }
         }.resume()
     }
-    
+
     private func fetchPosts() {
-        
+
     }
 
     private func fetchComments() {
-        
+
     }
 }
 
