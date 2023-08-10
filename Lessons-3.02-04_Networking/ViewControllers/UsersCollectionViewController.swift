@@ -11,6 +11,7 @@ final class UsersCollectionViewController: UICollectionViewController {
     
     // MARK: IBOutlets
     @IBOutlet var userCollectionView: UICollectionView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Private properties
     private var users: [User] = [] {
@@ -19,17 +20,14 @@ final class UsersCollectionViewController: UICollectionViewController {
         }
     }
     
-    private let networkManager = NetworkManager.shared
-    
     // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkManager.fetchUsers { [unowned self] users in
-            DispatchQueue.main.async {
-                self.users = users
-            }
-        }
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        
+        fetchUsers()
     }
     
     // MARK: UICollectionViewDataSource
@@ -72,5 +70,17 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width - 48, height: 150)
+    }
+}
+
+// MARK: - Networking
+extension UsersCollectionViewController {
+    private func fetchUsers() {
+        NetworkManager.shared.fetchUsers { [unowned self] users in
+            DispatchQueue.main.async {
+                self.users = users
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
 }

@@ -24,18 +24,18 @@ final class UserInfoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
-        let motoNameLabel = UILabel(
+        let projectNameLabel = UILabel(
         frame: CGRect(
             x: 16,
             y: 3,
             width: tableView.frame.width,
             height: 20))
-        motoNameLabel.text = user.company.catchPhrase
-        motoNameLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        motoNameLabel.textColor = .white
+        projectNameLabel.text = "Project: \"\(user.company.catchPhrase)\""
+        projectNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        projectNameLabel.textColor = .white
         
         let contentView = UIView()
-        contentView.addSubview(motoNameLabel)
+        contentView.addSubview(projectNameLabel)
         
         return contentView
     }
