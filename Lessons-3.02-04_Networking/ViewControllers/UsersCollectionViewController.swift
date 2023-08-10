@@ -7,17 +7,6 @@
 
 import UIKit
 
-// MARK: - APIs
-enum APIs: String {
-    case users
-    case posts
-    case comments
-}
-
-// MARK: - URL
-private let baseURL = "https://jsonplaceholder.typicode.com/"
-
-// MARK: - ViewController
 final class UsersCollectionViewController: UICollectionViewController {
     
     // MARK: IBOutlets
@@ -30,13 +19,13 @@ final class UsersCollectionViewController: UICollectionViewController {
         }
     }
     
-    private var indexPath: IndexPath!
+    private let networkManager = NetworkManager.shared
     
     // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchUsers { [unowned self] users in
+        networkManager.fetchUsers { [unowned self] users in
             DispatchQueue.main.async {
                 self.users = users
             }
@@ -83,66 +72,5 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width - 48, height: 150)
-    }
-}
-
-// MARK: - Networking
-extension UsersCollectionViewController {
-    
-    // MARK: Get Users
-    private func fetchUsers(_ completionHandler: @escaping ([User]) -> Void) {
-        guard let url = URL(string: baseURL + APIs.users.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let users = try decoder.decode([User].self, from: data)
-                completionHandler(users)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
-    
-    // MARK: Get Posts
-    private func fetchPosts() {
-        guard let url = URL(string: baseURL + APIs.posts.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let users = try decoder.decode([Post].self, from: data)
-                print(users)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
-
-    // MARK: Get Comments
-    private func fetchComments() {
-        guard let url = URL(string: baseURL + APIs.comments.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let users = try decoder.decode([Comment].self, from: data)
-                print(users)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
     }
 }

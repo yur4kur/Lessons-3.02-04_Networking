@@ -18,6 +18,7 @@
 		6A778A3D2A83CB8D006D96CE /* UsersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3C2A83CB8D006D96CE /* UsersCollectionViewController.swift */; };
 		6A778A402A83CF6A006D96CE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */; };
 		6A778A422A83E72C006D96CE /* UserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A412A83E72C006D96CE /* UserInfoTableViewController.swift */; };
+		6A778A452A852BF4006D96CE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A442A852BF4006D96CE /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		6A778A3C2A83CB8D006D96CE /* UsersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewController.swift; sourceTree = "<group>"; };
 		6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A778A412A83E72C006D96CE /* UserInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewController.swift; sourceTree = "<group>"; };
+		6A778A442A852BF4006D96CE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		6A778A1C2A83BA19006D96CE /* Lessons-3.02-04_Networking */ = {
 			isa = PBXGroup;
 			children = (
+				6A778A432A852BDF006D96CE /* Services */,
 				6A778A3E2A83CF34006D96CE /* Views */,
 				6A778A352A83BAE1006D96CE /* Models */,
 				6A778A342A83BA7E006D96CE /* ViewControllers */,
@@ -128,6 +131,14 @@
 				6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6A778A432A852BDF006D96CE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6A778A442A852BF4006D96CE /* NetworkManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A778A452A852BF4006D96CE /* NetworkManager.swift in Sources */,
 				6A778A372A83BEDF006D96CE /* User.swift in Sources */,
 				6A778A3B2A83C121006D96CE /* Comment.swift in Sources */,
 				6A778A1E2A83BA19006D96CE /* AppDelegate.swift in Sources */,
