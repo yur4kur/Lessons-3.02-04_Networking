@@ -7,7 +7,8 @@
 
 import Foundation
 
-// MARK: - Network options
+// MARK: - Network settings
+
 enum URLs: String {
     case base = "https://jsonplaceholder.typicode.com/"
 }
@@ -17,6 +18,7 @@ enum APIs: String {
     case posts
     case comments
 }
+
 
 enum HTTPHeaders: String {
     case length = "Content-Length"
@@ -28,72 +30,47 @@ enum HTTPMethod: String {
     case delete
 }
 
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case noResponse
+    case decodingError
+    case noDescription
+}
+
 // MARK: - Network manager
 class NetworkManager {
     
     // MARK: Singleton property
     static let shared = NetworkManager()
     
-    // MARK: - URL
-    //private let baseURL =
+    // MARK: Initializer
+    private init() {}
     
-    // MARK: Get Users
-    func fetchUsers(_ completionHandler: @escaping ([User]) -> Void) {
-        guard var url = URL(string: URLs.base.rawValue) else { return }
+    // MARK: Public methods
+    func fetch<T: Decodable>(_ type: T.Type,
+                               completion: @escaping(Result<T, NetworkError>) -> Void) {
+        
+        guard var url = URL(string: URLs.base.rawValue) else {
+            completion(.failure(.invalidURL))
+            return
+        }
         url.append(path: APIs.users.rawValue)
         
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? NetworkError.noDescription)
                 return
             }
             let decoder = JSONDecoder()
             do {
-                let users = try decoder.decode([User].self, from: data)
-                completionHandler(users)
+                let type = try decoder.decode(T.self, from: data)
+                completion(.success(type))
             } catch let error {
+                completion(.failure(.decodingError))
                 print(error.localizedDescription)
             }
         }.resume()
     }
-    
-    // MARK: Get Posts
-    private func fetchPosts() {
-        guard let url = URL(string: URLs.base.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let users = try decoder.decode([Post].self, from: data)
-                print(users)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
-
-    // MARK: Get Comments
-    private func fetchComments() {
-        guard let url = URL(string: URLs.base.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let users = try decoder.decode([Comment].self, from: data)
-                print(users)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
-    
-    private init() {}
 }

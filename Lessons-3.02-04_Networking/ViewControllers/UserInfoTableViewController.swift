@@ -65,7 +65,7 @@ final class UserInfoTableViewController: UITableViewController {
             cellContent.text = user.email
             cellContent.image = UIImage(systemName: "tray")
         default:
-            cellContent.text = user.website
+            cellContent.text = String("https://\(user.website)")
             cellContent.image = UIImage(systemName: "globe")
         }
         

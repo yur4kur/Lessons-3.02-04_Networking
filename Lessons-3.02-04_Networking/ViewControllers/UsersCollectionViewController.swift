@@ -76,10 +76,15 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Networking
 extension UsersCollectionViewController {
     private func fetchUsers() {
-        NetworkManager.shared.fetchUsers { [unowned self] users in
-            DispatchQueue.main.async {
-                self.users = users
-                self.activityIndicator.stopAnimating()
+        NetworkManager.shared.fetch([User].self) { result in
+            switch result {
+            case .success(let users):
+                DispatchQueue.main.async {
+                    self.users = users
+                    self.activityIndicator.stopAnimating()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
