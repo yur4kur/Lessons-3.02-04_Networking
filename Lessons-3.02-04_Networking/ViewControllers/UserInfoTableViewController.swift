@@ -9,7 +9,10 @@ import UIKit
 
 final class UserInfoTableViewController: UITableViewController {
     
+    
+    
     // MARK: - Public property
+    
     var user: User!
     
     // MARK: - Override methods
@@ -18,6 +21,16 @@ final class UserInfoTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = user.name
+        
+        let tableViewFooter =  UserInfoTableViewFooter(
+            frame: CGRect(x: 0,
+                          y: 0,
+                          width: self.view.frame.width,
+                          height: 200))
+        tableViewFooter.showContractsButton.addTarget(self,
+                                                      action: #selector(showContractsTapped),
+                                                      for: .touchUpInside)
+        self.tableView.tableFooterView = tableViewFooter
     }
     
     // MARK: - Table view delegate
@@ -36,9 +49,9 @@ final class UserInfoTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            headerTitleLabel.text = "Contact details:"
+            headerTitleLabel.text = "Contact details"
         default:
-            headerTitleLabel.text = "Postal address:"
+            headerTitleLabel.text = "Postal address"
         }
         
         let contentView = UIView()
@@ -96,4 +109,15 @@ final class UserInfoTableViewController: UITableViewController {
         
         return cell
     }
+    
+    @objc private func showContractsTapped () {
+        if let vc = UIStoryboard(
+            name: "Main",
+            bundle: nil).instantiateViewController(
+                withIdentifier: "contractsVC") as? ContractsTableViewController {
+            vc.user = user
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }
