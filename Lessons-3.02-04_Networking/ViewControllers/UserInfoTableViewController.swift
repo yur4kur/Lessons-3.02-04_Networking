@@ -24,18 +24,25 @@ final class UserInfoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
-        let projectNameLabel = UILabel(
-        frame: CGRect(
-            x: 16,
-            y: 3,
-            width: tableView.frame.width,
-            height: 20))
-        projectNameLabel.text = "Project: \"\(user.company.catchPhrase)\""
-        projectNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        projectNameLabel.textColor = .white
+        let headerTitleLabel = UILabel(
+            frame: CGRect(x: 16,
+                          y: 3,
+                          width: tableView.frame.width,
+                          height: 20)
+        )
+        //projectNameLabel.text = "Project: \"\(user.company.catchPhrase)\""
+        headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerTitleLabel.textColor = .white
+        
+        switch section {
+        case 0:
+            headerTitleLabel.text = "Contact details:"
+        default:
+            headerTitleLabel.text = "Postal address:"
+        }
         
         let contentView = UIView()
-        contentView.addSubview(projectNameLabel)
+        contentView.addSubview(headerTitleLabel)
         
         return contentView
     }
@@ -47,6 +54,10 @@ final class UserInfoTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
@@ -57,16 +68,28 @@ final class UserInfoTableViewController: UITableViewController {
         
         var cellContent = cell.defaultContentConfiguration()
         
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            cellContent.text = user.phone
-            cellContent.image = UIImage(systemName: "phone")
-        case 1:
-            cellContent.text = user.email
-            cellContent.image = UIImage(systemName: "tray")
+            switch indexPath.row {
+            case 0:
+                cellContent.text = user.phone
+                cellContent.image = UIImage(systemName: "phone")
+            case 1:
+                cellContent.text = user.email
+                cellContent.image = UIImage(systemName: "envelope")
+            default:
+                cellContent.text = String("https://\(user.website)")
+                cellContent.image = UIImage(systemName: "globe")
+            }
         default:
-            cellContent.text = String("https://\(user.website)")
-            cellContent.image = UIImage(systemName: "globe")
+            switch indexPath.row {
+            case 0:
+                cellContent.text = "\(user.address.city) City"
+            case 1:
+                cellContent.text = "\(user.address.street) St."
+            default:
+                cellContent.text = "ZipCode: \(user.address.zipcode)"
+            }
         }
         
         cell.contentConfiguration = cellContent
