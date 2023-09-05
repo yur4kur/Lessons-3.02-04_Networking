@@ -27,6 +27,8 @@ class ContractsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         fetchPosts(by: user.id)
+        
+        //navigationItem.rightBarButtonItem = editButtonItem
     }
     
     // MARK: - Table view delegate
@@ -85,9 +87,21 @@ class ContractsTableViewController: UITableViewController {
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.posts.remove(at: indexPath.row)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+            NetworkManager.shared.request(posts[indexPath.row],
+                                          API.posts.rawValue,
+                                          HTTPMethod.delete.rawValue,
+                                          QueryItem.postId.rawValue) { result in
+                switch result {
+                case .success(let deletedPost):
+                    DispatchQueue.main.async {
+                        print(deletedPost.id)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        } 
     }
 }
 

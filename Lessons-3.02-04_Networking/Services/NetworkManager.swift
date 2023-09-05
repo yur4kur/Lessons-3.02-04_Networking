@@ -17,7 +17,7 @@ class NetworkManager {
     
     private init() {}
     
-    // MARK: - Public methods
+    // MARK: - Fetch methods
     
     func fetch<T: Decodable>(_ type: T.Type,
                              _ API: API.RawValue,
@@ -81,5 +81,46 @@ class NetworkManager {
                 print(error.localizedDescription)
             }
         }.resume()
+    }
+    
+    // MARK: - Post method
+    
+    func request<T: Codable>(_ type: T,
+                             _ API: API.RawValue,
+                             _ httpMethod: HTTPMethod.RawValue,
+                             _ item: QueryItem.RawValue,
+                             completion: @escaping(Result<T, NetworkError>) -> Void) {
+        
+        guard var url = URL(string: URLs.base.rawValue) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        url.append(path: API)
+        
+        let sentData = try? JSONEncoder().encode(type)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.type.rawValue)
+        request.httpBody = sentData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let response = response as? HTTPURLResponse,
+                  response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 204 else {
+                completion(.failure(.noResponse))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            do {
+                let type = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(type))
+                print(type)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

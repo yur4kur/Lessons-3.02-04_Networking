@@ -5,7 +5,7 @@
 //  Created by Юрий Куринной on 09.08.2023.
 //
 
-struct Post: Decodable {
+struct Post: Codable {
     let userId: Int
     let id: Int
     let title: String

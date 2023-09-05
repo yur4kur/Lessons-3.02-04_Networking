@@ -5,7 +5,7 @@
 //  Created by Юрий Куринной on 09.08.2023.
 //
 
-struct Comment: Decodable {
+struct Comment: Codable {
     let postId: Int
     let id: Int
     let name: String
