@@ -9,18 +9,20 @@ import UIKit
 
 final class UsersCollectionViewController: UICollectionViewController {
     
-    // MARK: IBOutlets
+    // MARK: - IBOutlets
+    
     @IBOutlet var userCollectionView: UICollectionView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: Private properties
+    // MARK: - Private properties
+    
     private var users: [User] = [] {
         didSet {
             userCollectionView.reloadData()
         }
     }
     
-    // MARK: Override methods
+    // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +33,7 @@ final class UsersCollectionViewController: UICollectionViewController {
     }
     
     // MARK: UICollectionViewDataSource
+    
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
         users.count
@@ -52,6 +55,7 @@ final class UsersCollectionViewController: UICollectionViewController {
     }
 
     // MARK: UICollectionViewDelegate
+    
     override func collectionView(_ collectionView: UICollectionView,
                                  didSelectItemAt indexPath: IndexPath) {
         if let vc = UIStoryboard(
@@ -65,6 +69,7 @@ final class UsersCollectionViewController: UICollectionViewController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -74,9 +79,10 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Networking
+
 extension UsersCollectionViewController {
     private func fetchUsers() {
-        NetworkManager.shared.fetch([User].self) { result in
+        NetworkManager.shared.fetch([User].self, API.users.rawValue) { result in
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {

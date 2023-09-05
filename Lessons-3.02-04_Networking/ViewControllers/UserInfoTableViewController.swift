@@ -21,19 +21,10 @@ final class UserInfoTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = user.name
-        
-        let tableViewFooter =  UserInfoTableViewFooter(
-            frame: CGRect(x: 0,
-                          y: 0,
-                          width: self.view.frame.width,
-                          height: 200))
-        tableViewFooter.showContractsButton.addTarget(self,
-                                                      action: #selector(showContractsTapped),
-                                                      for: .touchUpInside)
-        self.tableView.tableFooterView = tableViewFooter
+        addFooter()
     }
     
-    // MARK: - Table view delegate
+    // MARK: Table view delegate
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
@@ -43,7 +34,7 @@ final class UserInfoTableViewController: UITableViewController {
                           width: tableView.frame.width,
                           height: 20)
         )
-        //projectNameLabel.text = "Project: \"\(user.company.catchPhrase)\""
+
         headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         headerTitleLabel.textColor = .white
         
@@ -66,7 +57,7 @@ final class UserInfoTableViewController: UITableViewController {
         view.backgroundColor = .gray
     }
 
-    // MARK: - Table view data source
+    // MARK: Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         2
@@ -110,13 +101,28 @@ final class UserInfoTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK: - Private methods
+    
+    private func addFooter() {
+        let tableViewFooter =  UserInfoTableViewFooter(
+            frame: CGRect(x: 0,
+                          y: 0,
+                          width: self.view.frame.width,
+                          height: 200))
+        tableViewFooter.showContractsButton.addTarget(self,
+                                                      action: #selector(showContractsTapped),
+                                                      for: .touchUpInside)
+        self.tableView.tableFooterView = tableViewFooter
+    }
+    
     @objc private func showContractsTapped () {
-        if let vc = UIStoryboard(
-            name: "Main",
-            bundle: nil).instantiateViewController(
-                withIdentifier: "contractsVC") as? ContractsTableViewController {
-            vc.user = user
-            self.navigationController?.pushViewController(vc, animated: true)
+        if let contractsNavVC = UIStoryboard(name: "Main",
+                                 bundle: nil).instantiateViewController(
+                                    withIdentifier: "contractsNavVC"
+                                 ) as? UINavigationController {
+            guard let contractsVC = contractsNavVC.topViewController as? ContractsTableViewController else { return }
+            contractsVC.user = user
+            self.navigationController?.pushViewController(contractsVC, animated: true)
         }
     }
     

@@ -9,6 +9,8 @@ import UIKit
 
 class UserInfoTableViewFooter: UIView {
 
+    // MARK: - Public property
+    
     let showContractsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Show Contracts", for: .normal)
@@ -18,6 +20,8 @@ class UserInfoTableViewFooter: UIView {
         
         return button
     }()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)

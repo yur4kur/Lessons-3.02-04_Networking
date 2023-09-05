@@ -7,57 +7,66 @@
 
 import Foundation
 
-// MARK: - Network settings
-
-enum URLs: String {
-    case base = "https://jsonplaceholder.typicode.com/"
-}
-
-enum APIs: String {
-    case users
-    case posts
-    case comments
-}
-
-
-enum HTTPHeaders: String {
-    case length = "Content-Length"
-    case type = "Content-Type"
-}
-
-enum HTTPMethod: String {
-    case post
-    case delete
-}
-
-enum NetworkError: Error {
-    case invalidURL
-    case noData
-    case noResponse
-    case decodingError
-    case noDescription
-}
-
-// MARK: - Network manager
 class NetworkManager {
     
-    // MARK: Singleton property
+    // MARK: - Singleton property
+    
     static let shared = NetworkManager()
     
-    // MARK: Initializer
+    // MARK: - Initializer
+    
     private init() {}
     
-    // MARK: Public methods
+    // MARK: - Public methods
+    
     func fetch<T: Decodable>(_ type: T.Type,
-                               completion: @escaping(Result<T, NetworkError>) -> Void) {
+                             _ API: API.RawValue,
+                            completion: @escaping(Result<T, NetworkError>) -> Void) {
         
         guard var url = URL(string: URLs.base.rawValue) else {
             completion(.failure(.invalidURL))
             return
         }
-        url.append(path: APIs.users.rawValue)
+        url.append(path: API)
         
         URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? NetworkError.noDescription)
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let type = try decoder.decode(T.self, from: data)
+                completion(.success(type))
+            } catch let error {
+                completion(.failure(.decodingError))
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
+    
+    func fetchQuery<T: Decodable>(by id: Int,
+                                  _ type: T.Type,
+                                  _ item: QueryItem.RawValue,
+                                  _ API: API.RawValue,
+                                  completion: @escaping(Result<T, NetworkError>) -> Void) {
+        
+        guard var url = URL(string: URLs.base.rawValue) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        url.append(path: API)
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: item, value: "\(id)")]
+        
+        guard let queryURL = components?.url else {
+            completion(.failure(.invalidQueryURL))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: queryURL) { data, _, error in
             guard let data = data else {
                 completion(.failure(.noData))
                 print(error?.localizedDescription ?? NetworkError.noDescription)
