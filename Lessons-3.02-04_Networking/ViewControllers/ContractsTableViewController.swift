@@ -29,7 +29,7 @@ class ContractsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchPosts(by: contractor.id)
+        fetchContracts(by: contractor.id)
     }
     
     // MARK: - Table view delegate
@@ -117,7 +117,7 @@ class ContractsTableViewController: UITableViewController {
     // MARK: - Networking methods
     
     extension ContractsTableViewController {
-        private func fetchPosts(by userID: Int) {
+        private func fetchContracts(by userID: Int) {
             NetworkManager.shared.fetchQuery(by: userID,
                                              [Contract].self,
                                              .userId,
