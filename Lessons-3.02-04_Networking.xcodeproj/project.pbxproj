@@ -12,9 +12,9 @@
 		6A778A252A83BA19006D96CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A778A232A83BA19006D96CE /* Main.storyboard */; };
 		6A778A272A83BA1A006D96CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A778A262A83BA1A006D96CE /* Assets.xcassets */; };
 		6A778A2A2A83BA1A006D96CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A778A282A83BA1A006D96CE /* LaunchScreen.storyboard */; };
-		6A778A372A83BEDF006D96CE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A362A83BEDF006D96CE /* User.swift */; };
-		6A778A392A83C0F0006D96CE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A382A83C0F0006D96CE /* Post.swift */; };
-		6A778A3B2A83C121006D96CE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3A2A83C121006D96CE /* Comment.swift */; };
+		6A778A372A83BEDF006D96CE /* Contractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A362A83BEDF006D96CE /* Contractor.swift */; };
+		6A778A392A83C0F0006D96CE /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A382A83C0F0006D96CE /* Contract.swift */; };
+		6A778A3B2A83C121006D96CE /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3A2A83C121006D96CE /* Review.swift */; };
 		6A778A3D2A83CB8D006D96CE /* UsersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3C2A83CB8D006D96CE /* UsersCollectionViewController.swift */; };
 		6A778A402A83CF6A006D96CE /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */; };
 		6A778A422A83E72C006D96CE /* UserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A412A83E72C006D96CE /* UserInfoTableViewController.swift */; };
@@ -25,6 +25,7 @@
 		6A778A522AA86223006D96CE /* ContractTextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A512AA86223006D96CE /* ContractTextTableViewController.swift */; };
 		6A778A542AA86236006D96CE /* ContractWorksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A532AA86236006D96CE /* ContractWorksTableViewController.swift */; };
 		6A778A572AA867D5006D96CE /* Extension + TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A562AA867D5006D96CE /* Extension + TableViewController.swift */; };
+		6A778A592AA875F6006D96CE /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A582AA875F6006D96CE /* Work.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +36,9 @@
 		6A778A262A83BA1A006D96CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A778A292A83BA1A006D96CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A778A2B2A83BA1A006D96CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A778A362A83BEDF006D96CE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		6A778A382A83C0F0006D96CE /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		6A778A3A2A83C121006D96CE /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		6A778A362A83BEDF006D96CE /* Contractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contractor.swift; sourceTree = "<group>"; };
+		6A778A382A83C0F0006D96CE /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		6A778A3A2A83C121006D96CE /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		6A778A3C2A83CB8D006D96CE /* UsersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCollectionViewController.swift; sourceTree = "<group>"; };
 		6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A778A412A83E72C006D96CE /* UserInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		6A778A512AA86223006D96CE /* ContractTextTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractTextTableViewController.swift; sourceTree = "<group>"; };
 		6A778A532AA86236006D96CE /* ContractWorksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractWorksTableViewController.swift; sourceTree = "<group>"; };
 		6A778A562AA867D5006D96CE /* Extension + TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + TableViewController.swift"; sourceTree = "<group>"; };
+		6A778A582AA875F6006D96CE /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,9 +136,10 @@
 		6A778A352A83BAE1006D96CE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6A778A362A83BEDF006D96CE /* User.swift */,
-				6A778A382A83C0F0006D96CE /* Post.swift */,
-				6A778A3A2A83C121006D96CE /* Comment.swift */,
+				6A778A362A83BEDF006D96CE /* Contractor.swift */,
+				6A778A382A83C0F0006D96CE /* Contract.swift */,
+				6A778A3A2A83C121006D96CE /* Review.swift */,
+				6A778A582AA875F6006D96CE /* Work.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,13 +246,14 @@
 				6A778A4C2AA61402006D96CE /* UserInfoTableViewFooter.swift in Sources */,
 				6A778A522AA86223006D96CE /* ContractTextTableViewController.swift in Sources */,
 				6A778A452A852BF4006D96CE /* NetworkManager.swift in Sources */,
-				6A778A372A83BEDF006D96CE /* User.swift in Sources */,
-				6A778A3B2A83C121006D96CE /* Comment.swift in Sources */,
+				6A778A372A83BEDF006D96CE /* Contractor.swift in Sources */,
+				6A778A3B2A83C121006D96CE /* Review.swift in Sources */,
 				6A778A572AA867D5006D96CE /* Extension + TableViewController.swift in Sources */,
+				6A778A592AA875F6006D96CE /* Work.swift in Sources */,
 				6A778A1E2A83BA19006D96CE /* AppDelegate.swift in Sources */,
 				6A778A202A83BA19006D96CE /* SceneDelegate.swift in Sources */,
 				6A778A402A83CF6A006D96CE /* UserCollectionViewCell.swift in Sources */,
-				6A778A392A83C0F0006D96CE /* Post.swift in Sources */,
+				6A778A392A83C0F0006D96CE /* Contract.swift in Sources */,
 				6A778A4E2AA61DB7006D96CE /* ContractsTableViewController.swift in Sources */,
 				6A778A422A83E72C006D96CE /* UserInfoTableViewController.swift in Sources */,
 				6A778A3D2A83CB8D006D96CE /* UsersCollectionViewController.swift in Sources */,

@@ -16,7 +16,7 @@ final class UsersCollectionViewController: UICollectionViewController {
     
     // MARK: - Private properties
     
-    private var users: [User] = [] {
+    private var contractors: [Contractor] = [] {
         didSet {
             userCollectionView.reloadData()
         }
@@ -36,7 +36,7 @@ final class UsersCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
-        users.count
+        contractors.count
     }
 
     override func collectionView(_ collectionView: UICollectionView,
@@ -47,9 +47,9 @@ final class UsersCollectionViewController: UICollectionViewController {
         guard let cell = cell as? UserCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.userNameLabel.text = users[indexPath.item].name
-        cell.companyNameLabel.text = "Company: \"\(users[indexPath.item].company.name)\""
-        cell.companyBsLabel.text = users[indexPath.item].company.bs
+        cell.userNameLabel.text = contractors[indexPath.item].name
+        cell.companyNameLabel.text = "Company: \"\(contractors[indexPath.item].company.name)\""
+        cell.companyBsLabel.text = contractors[indexPath.item].company.bs
         
         return cell
     }
@@ -62,7 +62,7 @@ final class UsersCollectionViewController: UICollectionViewController {
             name: "Main",
             bundle: nil).instantiateViewController(
                 withIdentifier: "UserInfoVC") as? UserInfoTableViewController {
-            vc.user = users[indexPath.item]
+            vc.contractor = contractors[indexPath.item]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -82,12 +82,12 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension UsersCollectionViewController {
     private func fetchUsers() {
-        NetworkManager.shared.fetch([User].self,
+        NetworkManager.shared.fetch([Contractor].self,
                                     API: .users) { result in
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {
-                    self.users = users
+                    self.contractors = users
                     self.activityIndicator.stopAnimating()
                 }
             case .failure(let error):

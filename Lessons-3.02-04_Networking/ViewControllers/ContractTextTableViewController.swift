@@ -11,8 +11,11 @@ class ContractTextTableViewController: UITableViewController {
     
     // MARK: - Public properties
     
-    var post: Post!
-    var comments: [Comment] = [] {
+    var contract: Contract!
+    
+    // MARK: - Private property
+    
+    private var review: [Review] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -23,7 +26,7 @@ class ContractTextTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchComments(by: post.userId)
+        fetchComments(by: contract.userId)
     }
     
     // MARK: Table view delegate
@@ -62,7 +65,7 @@ class ContractTextTableViewController: UITableViewController {
         case 0:
             return 1
         default:
-            return comments.count
+            return review.count
         }
     }
     
@@ -74,9 +77,9 @@ class ContractTextTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            cellContent.text = post.body.capitalized
+            cellContent.text = contract.body.capitalized
         default:
-            cellContent.text = "\([indexPath.row + 1]):\(comments[indexPath.row].body.capitalized)"
+            cellContent.text = "\([indexPath.row + 1]):\(review[indexPath.row].body.capitalized)"
         }
         
         cell.contentConfiguration = cellContent
@@ -88,13 +91,13 @@ class ContractTextTableViewController: UITableViewController {
 extension ContractTextTableViewController {
     private func fetchComments(by postID: Int) {
         NetworkManager.shared.fetchQuery(by: postID,
-                                         [Comment].self,
+                                         [Review].self,
                                          .postId,
                                          API: .comments) { result in
             switch result {
             case .success(let comments):
                 DispatchQueue.main.async {
-                    self.comments = comments
+                    self.review = comments
                 }
             case .failure(let error):
                 print(error.localizedDescription)

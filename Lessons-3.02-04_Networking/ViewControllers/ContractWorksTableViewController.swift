@@ -9,6 +9,10 @@ import UIKit
 
 class ContractWorksTableViewController: UITableViewController {
 
+    // MARK: Public property
+    var contractor: Contractor!
+    
+    // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -11,11 +11,11 @@ class ContractsTableViewController: UITableViewController {
     
     // MARK: - Public propertty
     
-    var user: User!
+    var contractor: Contractor!
     
     // MARK: - Private property
     
-    var posts: [Post] = [] {
+    var contracts: [Contract] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -29,7 +29,7 @@ class ContractsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchPosts(by: user.id)
+        fetchPosts(by: contractor.id)
     }
     
     // MARK: - Table view delegate
@@ -42,7 +42,7 @@ class ContractsTableViewController: UITableViewController {
                           width: tableView.frame.width,
                           height: 20)
         )
-        headerTitleLabel.text = "Project: \"\(user.company.catchPhrase)\""
+        headerTitleLabel.text = "Project: \"\(contractor.company.catchPhrase)\""
         headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         headerTitleLabel.textColor = .white
         
@@ -64,8 +64,11 @@ class ContractsTableViewController: UITableViewController {
                 identifier: "contractTabBarVC") as? UITabBarController {
             
             guard let textVC = tabBarVC.viewControllers?.first as? ContractTextTableViewController else { return }
-            textVC.post = posts[indexPath.row]
+            textVC.contract = contracts[indexPath.row]
+            
             guard let worksVC = tabBarVC.viewControllers?.last as? ContractWorksTableViewController else { return }
+            worksVC.contractor = contractor
+            
             navigationController?.pushViewController(tabBarVC, animated: true)
         }
     }
@@ -74,7 +77,7 @@ class ContractsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        contracts.count
     }
     
     
@@ -84,7 +87,7 @@ class ContractsTableViewController: UITableViewController {
                                                  for: indexPath)
         
         var cellContent = cell.defaultContentConfiguration()
-        cellContent.text = "\(indexPath.row + 1): \((posts[indexPath.row].title).capitalized)"
+        cellContent.text = "\(indexPath.row + 1): \((contracts[indexPath.row].title).capitalized)"
         cell.contentConfiguration = cellContent
         
         return cell
@@ -94,16 +97,16 @@ class ContractsTableViewController: UITableViewController {
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let deletedPost = posts[indexPath.row]
+            let deletedPost = contracts[indexPath.row]
             deletePost(deletedPost)
-            self.posts.remove(at: indexPath.row)
+            self.contracts.remove(at: indexPath.row)
 
         }
     }
     // MARK: - IBAction
     
     @IBAction func addContractTapped(_ sender: UIBarButtonItem) {
-        let newPost = Post(userId: user.id,
+        let newPost = Contract(userId: contractor.id,
                            id: 0,
                            title: newPostTitle,
                            body: newPostBody)
@@ -116,13 +119,13 @@ class ContractsTableViewController: UITableViewController {
     extension ContractsTableViewController {
         private func fetchPosts(by userID: Int) {
             NetworkManager.shared.fetchQuery(by: userID,
-                                             [Post].self,
+                                             [Contract].self,
                                              .userId,
                                              API: .posts) { result in
                 switch result {
                 case .success(let posts):
                     DispatchQueue.main.async {
-                        self.posts = posts
+                        self.contracts = posts
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -130,12 +133,12 @@ class ContractsTableViewController: UITableViewController {
             }
         }
         
-        private func addPost(_ newPost: Post) {
+        private func addPost(_ newPost: Contract) {
             NetworkManager.shared.postRequest(newPost, API: .posts) { result in
                 switch result {
                 case .success(let serverPost):
                     DispatchQueue.main.async { [weak self] in
-                        self?.posts.append(serverPost)
+                        self?.contracts.append(serverPost)
                         print("Server returned: \(serverPost)")
                     }
                 case .failure(let error):
@@ -144,7 +147,7 @@ class ContractsTableViewController: UITableViewController {
             }
         }
         
-        private func deletePost(_ deletedPost: Post) {
+        private func deletePost(_ deletedPost: Contract) {
             NetworkManager.shared.deleteRequest(deletedPost,
                                                 API: .posts) { result in
                 switch result {

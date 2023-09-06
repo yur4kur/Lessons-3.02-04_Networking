@@ -13,14 +13,14 @@ final class UserInfoTableViewController: UITableViewController {
     
     // MARK: - Public property
     
-    var user: User!
+    var contractor: Contractor!
     
     // MARK: - Override methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = user.name
+        navigationItem.title = contractor.name
         addFooter()
     }
     
@@ -68,23 +68,23 @@ final class UserInfoTableViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                cellContent.text = user.phone
+                cellContent.text = contractor.phone
                 cellContent.image = UIImage(systemName: "phone")
             case 1:
-                cellContent.text = user.email
+                cellContent.text = contractor.email
                 cellContent.image = UIImage(systemName: "envelope")
             default:
-                cellContent.text = String("https://\(user.website)")
+                cellContent.text = String("https://\(contractor.website)")
                 cellContent.image = UIImage(systemName: "globe")
             }
         default:
             switch indexPath.row {
             case 0:
-                cellContent.text = "\(user.address.city) City"
+                cellContent.text = "\(contractor.address.city) City"
             case 1:
-                cellContent.text = "\(user.address.street) St."
+                cellContent.text = "\(contractor.address.street) St."
             default:
-                cellContent.text = "ZipCode: \(user.address.zipcode)"
+                cellContent.text = "ZipCode: \(contractor.address.zipcode)"
             }
         }
         
@@ -113,7 +113,7 @@ final class UserInfoTableViewController: UITableViewController {
                                     withIdentifier: "contractsNavVC"
                                  ) as? UINavigationController {
             guard let contractsVC = contractsNavVC.topViewController as? ContractsTableViewController else { return }
-            contractsVC.user = user
+            contractsVC.contractor = contractor
             self.navigationController?.pushViewController(contractsVC, animated: true)
         }
     }

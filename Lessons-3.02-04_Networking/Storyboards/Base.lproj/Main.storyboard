@@ -180,7 +180,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7kL-ud-9fT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="c40-n1-mcv">
-                        <rect key="frame" x="0.0" y="20" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="98.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -210,7 +210,7 @@
             </objects>
             <point key="canvasLocation" x="3257" y="0.0"/>
         </scene>
-        <!--Text-->
+        <!--Agreement-->
         <scene sceneID="vQn-0G-zXZ">
             <objects>
                 <tableViewController storyboardIdentifier="contractTextVC" id="tFm-P9-EMU" customClass="ContractTextTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
@@ -242,7 +242,7 @@
                             <outlet property="delegate" destination="tFm-P9-EMU" id="mVA-pu-5dV"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Text" image="doc.text.fill" catalog="system" id="Fjf-hW-qBv"/>
+                    <tabBarItem key="tabBarItem" title="Agreement" image="doc.text.fill" catalog="system" id="Fjf-hW-qBv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPG-B0-eeQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
