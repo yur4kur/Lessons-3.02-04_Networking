@@ -26,7 +26,7 @@ class ContractTextTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchComments(by: contract.userId)
+        fetchComments(by: contract.id)
     }
     
     // MARK: Table view delegate
@@ -87,7 +87,7 @@ class ContractTextTableViewController: UITableViewController {
         return cell
     }
 }
-// MARK: - Private methods
+// MARK: - Networking methods
 extension ContractTextTableViewController {
     private func fetchComments(by postID: Int) {
         NetworkManager.shared.fetchQuery(by: postID,

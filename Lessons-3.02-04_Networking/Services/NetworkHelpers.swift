@@ -15,6 +15,7 @@ enum API: String {
     case users
     case posts
     case comments
+    case todos
 }
 
 enum QueryItem: String {

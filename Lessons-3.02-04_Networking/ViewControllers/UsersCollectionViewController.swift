@@ -78,7 +78,7 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Networking
+// MARK: - Networking method
 
 extension UsersCollectionViewController {
     private func fetchUsers() {

@@ -16,7 +16,7 @@ class UserInfoTableViewFooter: UIView {
         button.setTitle("Show Contracts", for: .normal)
         button.backgroundColor = .systemGray2
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 10
         
         return button
     }()

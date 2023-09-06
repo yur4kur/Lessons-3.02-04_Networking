@@ -5,4 +5,9 @@
 //  Created by Юрий Куринной on 06.09.2023.
 //
 
-import Foundation
+struct Work: Codable {
+    let userId: Int
+    let id: Int
+    let title: String
+    let completed: Bool
+}

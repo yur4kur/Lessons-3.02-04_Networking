@@ -21,8 +21,8 @@ class ContractsTableViewController: UITableViewController {
         }
     }
     
-    private var newPostTitle = "Veni vidi vici"
-    private var newPostBody = "In vino veritas"
+    private var newContractTitle = "Veni vidi vici"
+    private var newContractBody = "In vino veritas"
     
     // MARK: - Override methods
     
@@ -97,8 +97,8 @@ class ContractsTableViewController: UITableViewController {
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let deletedPost = contracts[indexPath.row]
-            deletePost(deletedPost)
+            let deletedContract = contracts[indexPath.row]
+            deleteContract(deletedContract)
             self.contracts.remove(at: indexPath.row)
 
         }
@@ -106,15 +106,15 @@ class ContractsTableViewController: UITableViewController {
     // MARK: - IBAction
     
     @IBAction func addContractTapped(_ sender: UIBarButtonItem) {
-        let newPost = Contract(userId: contractor.id,
+        let newContract = Contract(userId: contractor.id,
                            id: 0,
-                           title: newPostTitle,
-                           body: newPostBody)
-        addPost(newPost)
+                           title: newContractTitle,
+                           body: newContractBody)
+        addContract(newContract)
     }
 }
     
-    // MARK: - Networking
+    // MARK: - Networking methods
     
     extension ContractsTableViewController {
         private func fetchPosts(by userID: Int) {
@@ -133,13 +133,13 @@ class ContractsTableViewController: UITableViewController {
             }
         }
         
-        private func addPost(_ newPost: Contract) {
-            NetworkManager.shared.postRequest(newPost, API: .posts) { result in
+        private func addContract(_ newContract: Contract) {
+            NetworkManager.shared.postRequest(newContract, API: .posts) { result in
                 switch result {
-                case .success(let serverPost):
+                case .success(let serverContract):
                     DispatchQueue.main.async { [weak self] in
-                        self?.contracts.append(serverPost)
-                        print("Server returned: \(serverPost)")
+                        self?.contracts.append(serverContract)
+                        print("Server returned: \(serverContract)")
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -147,12 +147,12 @@ class ContractsTableViewController: UITableViewController {
             }
         }
         
-        private func deletePost(_ deletedPost: Contract) {
-            NetworkManager.shared.deleteRequest(deletedPost,
+        private func deleteContract(_ deletedContract: Contract) {
+            NetworkManager.shared.deleteRequest(deletedContract,
                                                 API: .posts) { result in
                 switch result {
-                case .success(let serverPost):
-                    print("Delete: \(serverPost)")
+                case .success(let serverContract):
+                    print("Delete: \(serverContract)")
                 case .failure(let error):
                     print("No return: \(error.localizedDescription)")
                 }
