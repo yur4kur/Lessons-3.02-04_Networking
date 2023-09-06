@@ -48,7 +48,7 @@ class NetworkManager {
     
     func fetchQuery<T: Decodable>(by id: Int,
                                   _ type: T.Type,
-                                  _ item: QueryItem,
+                                  queryBy item: QueryItem,
                                   API: API,
                                   _ completion: @escaping(Result<T, NetworkError>) -> Void) {
         

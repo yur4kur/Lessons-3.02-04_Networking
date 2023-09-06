@@ -41,30 +41,33 @@ class ContractWorksTableViewController: UITableViewController {
         return contentView
     }
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView,
+                            willDisplayHeaderView view: UIView,
+                            forSection section: Int) {
         view.backgroundColor = .gray
     }
     // MARK: Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         works.count
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "work", for: indexPath)
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "work",
+                                                 for: indexPath)
 
         var cellContent = cell.defaultContentConfiguration()
         cellContent.text = works[indexPath.row].title.capitalized
         cellContent.image = {
             var image = UIImage()
-            
             if works[indexPath.row].completed {
                 image = UIImage.checkmark
             } else {
                 image = UIImage.remove
             }
-            
             return image
         }()
         
@@ -79,8 +82,8 @@ class ContractWorksTableViewController: UITableViewController {
 extension ContractWorksTableViewController {
     private func fetchWorks(by userID: Int) {
         NetworkManager.shared.fetchQuery(by: userID,
-                                         [Work].self,
-                                         .userId,
+                                         [Work].self, 
+                                         queryBy: .userId,
                                          API: .todos) { result in
             switch result {
             case .success(let works):

@@ -9,7 +9,7 @@ import UIKit
 
 class ContractTextTableViewController: UITableViewController {
     
-    // MARK: - Public properties
+    // MARK: - Public property
     
     var contract: Contract!
     
@@ -30,6 +30,7 @@ class ContractTextTableViewController: UITableViewController {
     }
     
     // MARK: Table view delegate
+    
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
         let titleLabel = addHeaderTitleLabel(width: tableView.frame.width)
@@ -71,10 +72,10 @@ class ContractTextTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "text",
+                                                 for: indexPath)
         
         var cellContent = cell.defaultContentConfiguration()
-        
         switch indexPath.section {
         case 0:
             cellContent.text = contract.body.capitalized
@@ -92,7 +93,7 @@ extension ContractTextTableViewController {
     private func fetchComments(by postID: Int) {
         NetworkManager.shared.fetchQuery(by: postID,
                                          [Review].self,
-                                         .postId,
+                                         queryBy: .postId,
                                          API: .comments) { result in
             switch result {
             case .success(let comments):

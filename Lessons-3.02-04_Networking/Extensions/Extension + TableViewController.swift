@@ -13,7 +13,9 @@ func addHeaderTitleLabel(width: CGFloat) -> UILabel {
                       y: 3,
                       width: width,
                       height: 20))
+    
     headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
     headerTitleLabel.textColor = .white
+    
     return headerTitleLabel
 }

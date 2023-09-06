@@ -28,6 +28,7 @@ final class UserInfoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
+        
         let headerTitleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         
         switch section {
@@ -60,7 +61,8 @@ final class UserInfoTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userInfo",
+                                                 for: indexPath)
         
         var cellContent = cell.defaultContentConfiguration()
         
@@ -112,9 +114,11 @@ final class UserInfoTableViewController: UITableViewController {
                                  bundle: nil).instantiateViewController(
                                     withIdentifier: "contractsNavVC"
                                  ) as? UINavigationController {
+            
             guard let contractsVC = contractsNavVC.topViewController as? ContractsTableViewController else { return }
             contractsVC.contractor = contractor
-            self.navigationController?.pushViewController(contractsVC, animated: true)
+            
+            navigationController?.pushViewController(contractsVC, animated: true)
         }
     }
     

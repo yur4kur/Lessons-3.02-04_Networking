@@ -5,8 +5,6 @@
 //  Created by Юрий Куринной on 04.09.2023.
 //
 
-import Foundation
-
 enum URLs: String {
     case base = "https://jsonplaceholder.typicode.com/"
 }

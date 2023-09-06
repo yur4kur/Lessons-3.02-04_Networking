@@ -60,7 +60,8 @@ class ContractsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
-        if let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
+        if let tabBarVC = UIStoryboard(name: "Main",
+                                       bundle: nil).instantiateViewController(
                 identifier: "contractTabBarVC") as? UITabBarController {
             
             guard let textVC = tabBarVC.viewControllers?.first as? ContractTextTableViewController else { return }
@@ -120,7 +121,7 @@ class ContractsTableViewController: UITableViewController {
         private func fetchContracts(by userID: Int) {
             NetworkManager.shared.fetchQuery(by: userID,
                                              [Contract].self,
-                                             .userId,
+                                             queryBy: .userId,
                                              API: .posts) { result in
                 switch result {
                 case .success(let posts):
@@ -134,7 +135,8 @@ class ContractsTableViewController: UITableViewController {
         }
         
         private func addContract(_ newContract: Contract) {
-            NetworkManager.shared.postRequest(newContract, API: .posts) { result in
+            NetworkManager.shared.postRequest(newContract,
+                                              API: .posts) { result in
                 switch result {
                 case .success(let serverContract):
                     DispatchQueue.main.async { [weak self] in
