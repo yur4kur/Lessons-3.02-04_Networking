@@ -48,9 +48,9 @@ class NetworkManager {
     
     func fetchQuery<T: Decodable>(by id: Int,
                                   _ type: T.Type,
-                                  _ item: QueryItem.RawValue,
+                                  _ item: QueryItem,
                                   API: API,
-                                  completion: @escaping(Result<T, NetworkError>) -> Void) {
+                                  _ completion: @escaping(Result<T, NetworkError>) -> Void) {
         
         guard var url = URL(string: URLs.base.rawValue) else {
             completion(.failure(.invalidURL))
@@ -59,7 +59,7 @@ class NetworkManager {
         url.append(path: API.rawValue)
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        components?.queryItems = [URLQueryItem(name: item, value: "\(id)")]
+        components?.queryItems = [URLQueryItem(name: item.rawValue, value: "\(id)")]
         
         guard let queryURL = components?.url else {
             completion(.failure(.invalidQueryURL))

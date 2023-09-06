@@ -62,7 +62,9 @@ class ContractsTableViewController: UITableViewController {
                             didSelectRowAt indexPath: IndexPath) {
         if let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
                 identifier: "contractTabBarVC") as? UITabBarController {
+            
             guard let textVC = tabBarVC.viewControllers?.first as? ContractTextTableViewController else { return }
+            textVC.post = posts[indexPath.row]
             guard let worksVC = tabBarVC.viewControllers?.last as? ContractWorksTableViewController else { return }
             navigationController?.pushViewController(tabBarVC, animated: true)
         }
@@ -115,14 +117,13 @@ class ContractsTableViewController: UITableViewController {
         private func fetchPosts(by userID: Int) {
             NetworkManager.shared.fetchQuery(by: userID,
                                              [Post].self,
-                                             QueryItem.userId.rawValue,
+                                             .userId,
                                              API: .posts) { result in
                 switch result {
                 case .success(let posts):
                     DispatchQueue.main.async {
                         self.posts = posts
                     }
-                    
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
