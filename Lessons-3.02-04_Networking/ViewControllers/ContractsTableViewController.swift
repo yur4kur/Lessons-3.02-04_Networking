@@ -21,14 +21,15 @@ class ContractsTableViewController: UITableViewController {
         }
     }
     
+    private var newPostTitle = "Veni vidi vici"
+    private var newPostBody = "In vino veritas"
+    
     // MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchPosts(by: user.id)
-        
-        //navigationItem.rightBarButtonItem = editButtonItem
     }
     
     // MARK: - Table view delegate
@@ -76,7 +77,7 @@ class ContractsTableViewController: UITableViewController {
                                                  for: indexPath)
         
         var cellContent = cell.defaultContentConfiguration()
-        cellContent.text = "Preamble: \(posts[indexPath.row].title)"
+        cellContent.text = "\(indexPath.row + 1): \((posts[indexPath.row].title).capitalized)"
         cell.contentConfiguration = cellContent
         
         return cell
@@ -86,42 +87,67 @@ class ContractsTableViewController: UITableViewController {
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let deletedPost = posts[indexPath.row]
+            deletePost(deletedPost)
             self.posts.remove(at: indexPath.row)
-            NetworkManager.shared.request(posts[indexPath.row],
-                                          API.posts.rawValue,
-                                          HTTPMethod.delete.rawValue,
-                                          QueryItem.postId.rawValue) { result in
+
+        }
+    }
+    // MARK: - IBAction
+    
+    @IBAction func addContractTapped(_ sender: UIBarButtonItem) {
+        let newPost = Post(userId: user.id,
+                           id: 0,
+                           title: newPostTitle,
+                           body: newPostBody)
+        addPost(newPost)
+    }
+}
+    
+    // MARK: - Networking
+    
+    extension ContractsTableViewController {
+        private func fetchPosts(by userID: Int) {
+            NetworkManager.shared.fetchQuery(by: userID,
+                                             [Post].self,
+                                             QueryItem.userId.rawValue,
+                                             API: .posts) { result in
                 switch result {
-                case .success(let deletedPost):
+                case .success(let posts):
                     DispatchQueue.main.async {
-                        print(deletedPost.id)
+                        self.posts = posts
+                    }
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+        private func addPost(_ newPost: Post) {
+            NetworkManager.shared.postRequest(newPost, API: .posts) { result in
+                switch result {
+                case .success(let serverPost):
+                    DispatchQueue.main.async { [weak self] in
+                        self?.posts.append(serverPost)
+                        print("Server returned: \(serverPost)")
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
-        } 
-    }
-}
-
-// MARK: - Networking
-
-extension ContractsTableViewController {
-    private func fetchPosts(by userID: Int) {
-        NetworkManager.shared.fetchQuery(by: userID,
-                                         [Post].self,
-                                         QueryItem.userId.rawValue,
-                                         API.posts.rawValue) { result in
-            switch result {
-            case .success(let posts):
-                DispatchQueue.main.async {
-                    self.posts = posts
+        }
+        
+        private func deletePost(_ deletedPost: Post) {
+            NetworkManager.shared.deleteRequest(deletedPost,
+                                                API: .posts) { result in
+                switch result {
+                case .success(let serverPost):
+                    print("Delete: \(serverPost)")
+                case .failure(let error):
+                    print("No return: \(error.localizedDescription)")
                 }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
             }
         }
     }
-}
+

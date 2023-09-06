@@ -82,7 +82,8 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension UsersCollectionViewController {
     private func fetchUsers() {
-        NetworkManager.shared.fetch([User].self, API.users.rawValue) { result in
+        NetworkManager.shared.fetch([User].self,
+                                    API: .users) { result in
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {
