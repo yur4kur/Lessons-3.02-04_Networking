@@ -60,7 +60,12 @@ class ContractsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        if let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
+                identifier: "contractTabBarVC") as? UITabBarController {
+            guard let textVC = tabBarVC.viewControllers?.first as? ContractTextTableViewController else { return }
+            guard let worksVC = tabBarVC.viewControllers?.last as? ContractWorksTableViewController else { return }
+            navigationController?.pushViewController(tabBarVC, animated: true)
+        }
     }
     
     // MARK: - Table view data source

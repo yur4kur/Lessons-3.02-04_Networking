@@ -28,15 +28,7 @@ final class UserInfoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
-        let headerTitleLabel = UILabel(
-            frame: CGRect(x: 16,
-                          y: 3,
-                          width: tableView.frame.width,
-                          height: 20)
-        )
-
-        headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        headerTitleLabel.textColor = .white
+        let headerTitleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         
         switch section {
         case 0:

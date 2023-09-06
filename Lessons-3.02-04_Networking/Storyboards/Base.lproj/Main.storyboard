@@ -210,8 +210,96 @@
             </objects>
             <point key="canvasLocation" x="3257" y="0.0"/>
         </scene>
+        <!--Text-->
+        <scene sceneID="vQn-0G-zXZ">
+            <objects>
+                <tableViewController storyboardIdentifier="contractTextVC" id="tFm-P9-EMU" customClass="ContractTextTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Cza-Zf-zAe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="text" textLabel="AI2-Zd-5SG" style="IBUITableViewCellStyleDefault" id="VKj-ec-LDb">
+                                <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VKj-ec-LDb" id="Xr9-v6-IB3">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AI2-Zd-5SG">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tFm-P9-EMU" id="a65-1V-Lf7"/>
+                            <outlet property="delegate" destination="tFm-P9-EMU" id="mVA-pu-5dV"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Text" image="doc.text.fill" catalog="system" id="Fjf-hW-qBv"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IPG-B0-eeQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5595" y="-466"/>
+        </scene>
+        <!--Works-->
+        <scene sceneID="Llo-gU-JMB">
+            <objects>
+                <tableViewController storyboardIdentifier="contractWorksVC" id="Vvm-TZ-jS2" customClass="ContractWorksTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ONl-VX-eOv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="work" id="hE8-S0-Vbp">
+                                <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hE8-S0-Vbp" id="nde-dv-xkC">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Vvm-TZ-jS2" id="4pa-GY-CiP"/>
+                            <outlet property="delegate" destination="Vvm-TZ-jS2" id="vVX-pe-ngf"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Works" image="list.bullet.clipboard.fill" catalog="system" id="Ihi-jg-LNb"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8uf-ri-duQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5595" y="360"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="5Zp-3u-nsN">
+            <objects>
+                <tabBarController storyboardIdentifier="contractTabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="O8L-95-aHq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jqJ-dl-e86">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="tFm-P9-EMU" kind="relationship" relationship="viewControllers" id="qLE-yb-mpX"/>
+                        <segue destination="Vvm-TZ-jS2" kind="relationship" relationship="viewControllers" id="AjY-GQ-8S4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ry-sa-38b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4768" y="-8"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="doc.text.fill" catalog="system" width="115" height="128"/>
+        <image name="list.bullet.clipboard.fill" catalog="system" width="103" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
