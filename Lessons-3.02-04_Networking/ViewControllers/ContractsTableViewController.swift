@@ -69,27 +69,21 @@ final class ContractsTableViewController: UITableViewController {
         didSelectRowAt indexPath: IndexPath
     ) {
         
-        if let tabBarVC = UIStoryboard(
+        if let contractsNavVC = UIStoryboard(
             name: Constants.mainStoryboard,
             bundle: nil
-        ).instantiateViewController(
-            identifier: Constants.contractTabBarVC
-        ) as? UITabBarController {
+        )
+            .instantiateViewController(
+                withIdentifier: Constants.contractsNavVC
+            )
+            as? UINavigationController {
             
-            guard let textVC = tabBarVC.viewControllers?
-                .first as? ContractTextTableViewController else {
-                return
-            }
-            textVC.contract = contracts[indexPath.row]
-            
-            guard let worksVC = tabBarVC.viewControllers?
-                .last as? ContractWorksTableViewController else {
-                return
-            }
-            worksVC.contractor = contractor
+            guard let contractTextVC = contractsNavVC
+                .topViewController as? ContractTextTableViewController else { return }
+            contractTextVC.contract = contracts[indexPath.row]
             
             navigationController?.pushViewController(
-                tabBarVC,
+                contractTextVC,
                 animated: true
             )
         }

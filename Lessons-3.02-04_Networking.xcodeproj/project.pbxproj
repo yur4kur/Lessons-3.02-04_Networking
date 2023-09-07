@@ -129,8 +129,8 @@
 				6A778A3C2A83CB8D006D96CE /* ContractorsCollectionViewController.swift */,
 				6A778A412A83E72C006D96CE /* ContractorInfoTableViewController.swift */,
 				6A778A4D2AA61DB7006D96CE /* ContractsTableViewController.swift */,
-				6A778A512AA86223006D96CE /* ContractTextTableViewController.swift */,
 				6A778A532AA86236006D96CE /* ContractWorksTableViewController.swift */,
+				6A778A512AA86223006D96CE /* ContractTextTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

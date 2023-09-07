@@ -126,21 +126,27 @@ final class ContractorInfoTableViewController: UITableViewController {
     }
     
     @objc private func showContractsTapped () {
-        if let contractsNavVC = UIStoryboard(
+        if let tabBarVC = UIStoryboard(
             name: Constants.mainStoryboard,
             bundle: nil
-        )
-            .instantiateViewController(
-                withIdentifier: Constants.contractsNavVC
-            )
-            as? UINavigationController {
+        ).instantiateViewController(
+            identifier: Constants.contractTabBarVC
+        ) as? UITabBarController {
             
-            guard let contractsVC = contractsNavVC
-                .topViewController as? ContractsTableViewController else { return }
+            guard let contractsVC = tabBarVC.viewControllers?
+                .first as? ContractsTableViewController else {
+                return
+            }
             contractsVC.contractor = contractor
             
+            guard let worksVC = tabBarVC.viewControllers?
+                .last as? ContractWorksTableViewController else {
+                return
+            }
+            worksVC.contractor = contractor
+            
             navigationController?.pushViewController(
-                contractsVC,
+                tabBarVC,
                 animated: true
             )
         }
