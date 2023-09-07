@@ -11,7 +11,7 @@
         <!--Contractors-->
         <scene sceneID="IEL-rE-ur6">
             <objects>
-                <collectionViewController id="Kzp-Ij-ugL" customClass="UsersCollectionViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="Kzp-Ij-ugL" customClass="ContractorsCollectionViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="OIL-8G-eyx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +27,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="user" id="3Ce-fV-QIy" customClass="UserCollectionViewCell" customModule="Lessons_3_02_04_Networking" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ContractorCell" id="3Ce-fV-QIy" customClass="UserCollectionViewCell" customModule="Lessons_3_02_04_Networking" customModuleProvider="target">
                                 <rect key="frame" x="10" y="20" width="300" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LAK-e6-6Vc">
@@ -83,23 +83,23 @@
                     <navigationItem key="navigationItem" title="Contractors" id="HDh-ER-m9p"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Zhf-VO-Zgz" id="Wl9-uK-nvW"/>
-                        <outlet property="userCollectionView" destination="OIL-8G-eyx" id="yFh-mI-jXx"/>
+                        <outlet property="contractorCollectionView" destination="OIL-8G-eyx" id="yFh-mI-jXx"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4f-Oh-FsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1773.2824427480916" y="-8.4507042253521139"/>
         </scene>
-        <!--User Info Table View Controller-->
+        <!--Contractor Info Table View Controller-->
         <scene sceneID="UkT-6L-Evf">
             <objects>
-                <tableViewController storyboardIdentifier="UserInfoVC" id="qjf-rv-aDa" customClass="UserInfoTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContractorInfoVC" id="qjf-rv-aDa" customClass="ContractorInfoTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ziL-eK-pgN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfo" textLabel="vSv-AP-Mvh" style="IBUITableViewCellStyleDefault" id="Eat-vd-Amz">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContractorInfoCell" textLabel="vSv-AP-Mvh" style="IBUITableViewCellStyleDefault" id="Eat-vd-Amz">
                                 <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eat-vd-Amz" id="kvG-tA-5Fo">
@@ -133,13 +133,13 @@
         <!--Contracts-->
         <scene sceneID="PJe-6J-A29">
             <objects>
-                <tableViewController storyboardIdentifier="contractsVC" id="TO8-06-wze" customClass="ContractsTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContractsVC" id="TO8-06-wze" customClass="ContractsTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="SSm-cS-uqR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contractInfo" textLabel="a7Z-zP-Elp" style="IBUITableViewCellStyleDefault" id="0jS-om-26U">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContractInfoCell" textLabel="a7Z-zP-Elp" style="IBUITableViewCellStyleDefault" id="0jS-om-26U">
                                 <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0jS-om-26U" id="vNG-gI-UDw">
@@ -195,7 +195,7 @@
         <!--Navigation Controller-->
         <scene sceneID="3hc-C5-LIH">
             <objects>
-                <navigationController storyboardIdentifier="contractsNavVC" automaticallyAdjustsScrollViewInsets="NO" id="YiG-wo-Dbh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ContractsNavVC" automaticallyAdjustsScrollViewInsets="NO" id="YiG-wo-Dbh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HlW-cb-00e">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -213,13 +213,13 @@
         <!--Agreement-->
         <scene sceneID="vQn-0G-zXZ">
             <objects>
-                <tableViewController storyboardIdentifier="contractTextVC" id="tFm-P9-EMU" customClass="ContractTextTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContractTextVC" id="tFm-P9-EMU" customClass="ContractTextTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Cza-Zf-zAe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="text" textLabel="AI2-Zd-5SG" style="IBUITableViewCellStyleDefault" id="VKj-ec-LDb">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContractTextCell" textLabel="AI2-Zd-5SG" style="IBUITableViewCellStyleDefault" id="VKj-ec-LDb">
                                 <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VKj-ec-LDb" id="Xr9-v6-IB3">
@@ -251,13 +251,13 @@
         <!--Works-->
         <scene sceneID="Llo-gU-JMB">
             <objects>
-                <tableViewController storyboardIdentifier="contractWorksVC" id="Vvm-TZ-jS2" customClass="ContractWorksTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContractWorksVC" id="Vvm-TZ-jS2" customClass="ContractWorksTableViewController" customModule="Lessons_3_02_04_Networking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ONl-VX-eOv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="work" textLabel="wm7-iE-ZcT" style="IBUITableViewCellStyleDefault" id="hE8-S0-Vbp">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContractWorksCell" textLabel="wm7-iE-ZcT" style="IBUITableViewCellStyleDefault" id="hE8-S0-Vbp">
                                 <rect key="frame" x="0.0" y="50" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hE8-S0-Vbp" id="nde-dv-xkC">
@@ -289,7 +289,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="5Zp-3u-nsN">
             <objects>
-                <tabBarController storyboardIdentifier="contractTabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="O8L-95-aHq" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="ContractTabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="O8L-95-aHq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jqJ-dl-e86">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

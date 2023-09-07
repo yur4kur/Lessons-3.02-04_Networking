@@ -7,18 +7,18 @@
 
 import UIKit
 
-final class UsersCollectionViewController: UICollectionViewController {
+final class ContractorsCollectionViewController: UICollectionViewController {
     
     // MARK: - IBOutlets
     
-    @IBOutlet var userCollectionView: UICollectionView!
+    @IBOutlet var contractorCollectionView: UICollectionView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Private properties
     
     private var contractors: [Contractor] = [] {
         didSet {
-            userCollectionView.reloadData()
+            contractorCollectionView.reloadData()
         }
     }
     
@@ -34,34 +34,50 @@ final class UsersCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
-    override func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        
         contractors.count
     }
-
-    override func collectionView(_ collectionView: UICollectionView,
-                                 cellForItemAt indexPath: IndexPath
-                                ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user",
-                                                      for: indexPath)
+    
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.contractorCollectionViewCell,
+            for: indexPath
+        )
+        
         guard let cell = cell as? UserCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         cell.userNameLabel.text = contractors[indexPath.item].name
         cell.companyNameLabel.text = "Company: \"\(contractors[indexPath.item].company.name)\""
         cell.companyBsLabel.text = contractors[indexPath.item].company.bs
         
         return cell
     }
-
+    
     // MARK: UICollectionViewDelegate
     
-    override func collectionView(_ collectionView: UICollectionView,
-                                 didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        
         if let vc = UIStoryboard(
-            name: "Main",
-            bundle: nil).instantiateViewController(
-                withIdentifier: "UserInfoVC") as? UserInfoTableViewController {
+            name: Constants.mainStoryboard,
+            bundle: nil
+        )
+            .instantiateViewController(
+                withIdentifier: Constants.contractorInfoVC
+            ) as? ContractorInfoTableViewController {
+            
             vc.contractor = contractors[indexPath.item]
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -70,24 +86,33 @@ final class UsersCollectionViewController: UICollectionViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension ContractorsCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
         CGSize(width: UIScreen.main.bounds.width - 48, height: 150)
     }
 }
 
 // MARK: - Networking method
 
-extension UsersCollectionViewController {
+extension ContractorsCollectionViewController {
+    
     private func fetchUsers() {
-        NetworkManager.shared.fetch([Contractor].self,
-                                    API: .users) { result in
+        
+        NetworkManager.shared.fetch(
+            [Contractor].self,
+            API: .users
+        ) { result in
+            
             switch result {
-            case .success(let users):
-                DispatchQueue.main.async {
-                    self.contractors = users
+            case .success(let contractors):
+                DispatchQueue.main.async { [unowned self] in
+                    self.contractors = contractors
                     self.activityIndicator.stopAnimating()
                 }
             case .failure(let error):

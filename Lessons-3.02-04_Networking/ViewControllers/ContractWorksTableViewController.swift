@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ContractWorksTableViewController: UITableViewController {
-
+final class ContractWorksTableViewController: UITableViewController {
+    
     // MARK: - Public property
     
     var contractor: Contractor!
@@ -24,14 +24,17 @@ class ContractWorksTableViewController: UITableViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         fetchWorks(by: contractor.id)
     }
-
+    
     // MARK: Table view delegate
     
-    override func tableView(_ tableView: UITableView,
-                            viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
+        
         let titleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         titleLabel.text = "Agreed Works Status"
         
@@ -41,24 +44,35 @@ class ContractWorksTableViewController: UITableViewController {
         return contentView
     }
     
-    override func tableView(_ tableView: UITableView,
-                            willDisplayHeaderView view: UIView,
-                            forSection section: Int) {
+    override func tableView(
+        _ tableView: UITableView,
+        willDisplayHeaderView view: UIView,
+        forSection section: Int
+    ) {
+        
         view.backgroundColor = .gray
     }
+    
     // MARK: Table view data source
-
-    override func tableView(_ tableView: UITableView,
-                            numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        
         works.count
     }
-
     
-    override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "work",
-                                                 for: indexPath)
-
+    
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.contractWorksTableViewCell,
+            for: indexPath
+        )
+        
         var cellContent = cell.defaultContentConfiguration()
         cellContent.text = works[indexPath.row].title.capitalized
         cellContent.image = {
@@ -72,7 +86,7 @@ class ContractWorksTableViewController: UITableViewController {
         }()
         
         cell.contentConfiguration = cellContent
-
+        
         return cell
     }
 }
@@ -80,11 +94,16 @@ class ContractWorksTableViewController: UITableViewController {
 // MARK: - Networking methods
 
 extension ContractWorksTableViewController {
+   
     private func fetchWorks(by userID: Int) {
-        NetworkManager.shared.fetchQuery(by: userID,
-                                         [Work].self, 
-                                         queryBy: .userId,
-                                         API: .todos) { result in
+        
+        NetworkManager.shared.fetchQuery(
+            by: userID,
+            [Work].self,
+            queryBy: .userId,
+            API: .todos
+        ) { result in
+            
             switch result {
             case .success(let works):
                 DispatchQueue.main.async {

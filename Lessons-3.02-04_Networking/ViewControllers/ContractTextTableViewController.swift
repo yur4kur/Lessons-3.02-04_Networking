@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContractTextTableViewController: UITableViewController {
+final class ContractTextTableViewController: UITableViewController {
     
     // MARK: - Public property
     
@@ -31,9 +31,14 @@ class ContractTextTableViewController: UITableViewController {
     
     // MARK: Table view delegate
     
-    override func tableView(_ tableView: UITableView,
-                            viewForHeaderInSection section: Int) -> UIView? {
-        let titleLabel = addHeaderTitleLabel(width: tableView.frame.width)
+    override func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
+        
+        let titleLabel = addHeaderTitleLabel(
+            width: tableView.frame.width
+        )
         
         switch section {
         case 0:
@@ -48,9 +53,12 @@ class ContractTextTableViewController: UITableViewController {
         return contentView
     }
     
-    override func tableView(_ tableView: UITableView,
-                            willDisplayHeaderView view: UIView,
-                            forSection section: Int) {
+    override func tableView(
+        _ tableView: UITableView,
+        willDisplayHeaderView view: UIView,
+        forSection section: Int
+    ) {
+        
         view.backgroundColor = .gray
     }
     
@@ -60,8 +68,11 @@ class ContractTextTableViewController: UITableViewController {
         2
     }
     
-    override func tableView(_ tableView: UITableView,
-                            numberOfRowsInSection section: Int) -> Int {
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        
         switch section {
         case 0:
             return 1
@@ -70,10 +81,15 @@ class ContractTextTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "text",
-                                                 for: indexPath)
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.contractTextTableViewCell,
+            for: indexPath
+        )
         
         var cellContent = cell.defaultContentConfiguration()
         switch indexPath.section {
@@ -90,11 +106,16 @@ class ContractTextTableViewController: UITableViewController {
 }
 // MARK: - Networking methods
 extension ContractTextTableViewController {
+    
     private func fetchComments(by postID: Int) {
-        NetworkManager.shared.fetchQuery(by: postID,
-                                         [Review].self,
-                                         queryBy: .postId,
-                                         API: .comments) { result in
+        
+        NetworkManager.shared.fetchQuery(
+            by: postID,
+            [Review].self,
+            queryBy: .postId,
+            API: .comments
+        ) { result in
+            
             switch result {
             case .success(let comments):
                 DispatchQueue.main.async {

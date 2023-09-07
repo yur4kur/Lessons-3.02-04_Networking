@@ -7,7 +7,12 @@
 
 import Foundation
 
+
 class NetworkManager {
+    
+    // MARK: - Private property
+    
+    let baseURL = "https://jsonplaceholder.typicode.com/"
     
     // MARK: - Singleton property
     

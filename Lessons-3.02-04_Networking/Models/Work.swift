@@ -5,7 +5,7 @@
 //  Created by Юрий Куринной on 06.09.2023.
 //
 
-struct Work: Codable {
+struct Work: Decodable {
     let userId: Int
     let id: Int
     let title: String
