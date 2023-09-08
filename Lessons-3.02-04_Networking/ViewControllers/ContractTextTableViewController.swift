@@ -105,6 +105,7 @@ final class ContractTextTableViewController: UITableViewController {
     }
 }
 // MARK: - Networking methods
+
 extension ContractTextTableViewController {
     
     private func fetchComments(by postID: Int) {
