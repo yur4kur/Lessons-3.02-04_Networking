@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NewReviewViewControllerDelegate {
+    func addReview(_ newReview: Review)
+}
+
 final class ContractTextTableViewController: UITableViewController {
     
     // MARK: - Public property
@@ -15,7 +19,7 @@ final class ContractTextTableViewController: UITableViewController {
     
     // MARK: - Private property
     
-    private var review: [Review] = [] {
+    private var reviews: [Review] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -26,7 +30,7 @@ final class ContractTextTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchComments(by: contract.id)
+        fetchReviews(by: contract.id)
     }
     
     // MARK: Table view delegate
@@ -77,7 +81,7 @@ final class ContractTextTableViewController: UITableViewController {
         case 0:
             return 1
         default:
-            return review.count
+            return reviews.count
         }
     }
     
@@ -96,19 +100,31 @@ final class ContractTextTableViewController: UITableViewController {
         case 0:
             cellContent.text = contract.body.capitalized
         default:
-            cellContent.text = "\([indexPath.row + 1]):\(review[indexPath.row].body.capitalized)"
+            cellContent.text = "\([indexPath.row + 1]):\(reviews[indexPath.row].body.capitalized)"
         }
         
         cell.contentConfiguration = cellContent
         
         return cell
     }
+    
+    // MARK: - IBAction
+    
+    @IBAction func addReviewTapped(_ sender: UIBarButtonItem) {
+        //            let newContract = Contract(
+        //                userId: contractor.id,
+        //                id: 0,
+        //                title: newContractTitle,
+        //                body: newContractBody
+        //            )
+        //            addContract(newContract)
+    }
 }
 // MARK: - Networking methods
 
 extension ContractTextTableViewController {
     
-    private func fetchComments(by postID: Int) {
+    private func fetchReviews(by postID: Int) {
         
         NetworkManager.shared.fetchQuery(
             by: postID,
@@ -118,9 +134,31 @@ extension ContractTextTableViewController {
         ) { result in
             
             switch result {
-            case .success(let comments):
+            case .success(let reviews):
                 DispatchQueue.main.async {
-                    self.review = comments
+                    self.reviews = reviews
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+extension ContractTextTableViewController: NewReviewViewControllerDelegate {
+    
+    internal func addReview(_ newReview: Review) {
+        
+        NetworkManager.shared.postRequest(
+            newReview,
+            API: .comments
+        ) { result in
+            
+            switch result {
+            case .success(let serverReview):
+                DispatchQueue.main.async { [weak self] in
+                    self?.reviews.append(serverReview)
+                    print("Server returned: \(serverReview)")
                 }
             case .failure(let error):
                 print(error.localizedDescription)

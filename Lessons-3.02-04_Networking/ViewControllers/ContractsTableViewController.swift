@@ -21,9 +21,6 @@ final class ContractsTableViewController: UITableViewController {
         }
     }
     
-    private var newContractTitle = "Veni vidi vici"
-    private var newContractBody = "In vino veritas"
-    
     // MARK: - Override methods
     
     override func viewDidLoad() {
@@ -130,19 +127,6 @@ final class ContractsTableViewController: UITableViewController {
             
         }
     }
-    // MARK: - IBAction
-    
-    @IBAction func addContractTapped(
-        _ sender: UIBarButtonItem) {
-            
-            let newContract = Contract(
-                userId: contractor.id,
-                id: 0,
-                title: newContractTitle,
-                body: newContractBody
-            )
-            addContract(newContract)
-        }
 }
 
 // MARK: - Networking methods
@@ -162,25 +146,6 @@ extension ContractsTableViewController {
             case .success(let posts):
                 DispatchQueue.main.async {
                     self.contracts = posts
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    private func addContract(_ newContract: Contract) {
-        
-        NetworkManager.shared.postRequest(
-            newContract,
-            API: .posts
-        ) { result in
-            
-            switch result {
-            case .success(let serverContract):
-                DispatchQueue.main.async { [weak self] in
-                    self?.contracts.append(serverContract)
-                    print("Server returned: \(serverContract)")
                 }
             case .failure(let error):
                 print(error.localizedDescription)
