@@ -147,7 +147,6 @@ extension ContractTextTableViewController {
             queryBy: .postId,
             API: .comments
         ) { result in
-            
             switch result {
             case .success(let reviews):
                 DispatchQueue.main.async {

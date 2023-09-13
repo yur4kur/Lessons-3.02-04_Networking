@@ -27,8 +27,8 @@
 		6A778A572AA867D5006D96CE /* Extension + TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A562AA867D5006D96CE /* Extension + TableViewController.swift */; };
 		6A778A592AA875F6006D96CE /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A582AA875F6006D96CE /* Work.swift */; };
 		6A778A5B2AA9C10D006D96CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A5A2AA9C10D006D96CE /* Constants.swift */; };
-		6A778A612AAB7B0C006D96CE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6A778A602AAB7B0C006D96CE /* Alamofire */; };
 		6A778A632AAF0545006D96CE /* NewReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A778A622AAF0545006D96CE /* NewReviewViewController.swift */; };
+		6A778A8D2AB1BFCD006D96CE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6A778A8C2AB1BFCD006D96CE /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A778A612AAB7B0C006D96CE /* Alamofire in Frameworks */,
+				6A778A8D2AB1BFCD006D96CE /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +211,7 @@
 			);
 			name = "Lessons-3.02-04_Networking";
 			packageProductDependencies = (
-				6A778A602AAB7B0C006D96CE /* Alamofire */,
+				6A778A8C2AB1BFCD006D96CE /* Alamofire */,
 			);
 			productName = "Lessons-3.02-04_Networking";
 			productReference = 6A778A1A2A83BA19006D96CE /* Lessons-3.02-04_Networking.app */;
@@ -525,7 +525,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6A778A602AAB7B0C006D96CE /* Alamofire */ = {
+		6A778A8C2AB1BFCD006D96CE /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A778A5C2AAAE51C006D96CE /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
