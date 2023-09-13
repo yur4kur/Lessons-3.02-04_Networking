@@ -15,7 +15,7 @@ final class ContractWorksTableViewController: UITableViewController {
     
     // MARK: - Private property
     
-    var works: [Work] = [] {
+    private var works: [Work] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -34,7 +34,6 @@ final class ContractWorksTableViewController: UITableViewController {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        
         let titleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         titleLabel.text = "Agreed Works Status"
         
@@ -49,11 +48,13 @@ final class ContractWorksTableViewController: UITableViewController {
         willDisplayHeaderView view: UIView,
         forSection section: Int
     ) {
-        
         view.backgroundColor = .gray
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -63,10 +64,8 @@ final class ContractWorksTableViewController: UITableViewController {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        
         works.count
     }
-    
     
     override func tableView(
         _ tableView: UITableView,
@@ -93,6 +92,17 @@ final class ContractWorksTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                let deletedWork = works[indexPath.row]
+                delete(work: deletedWork)
+                works.remove(at: indexPath.row)
+            }
+    }
 }
 
 // MARK: - Networking methods
@@ -100,14 +110,12 @@ final class ContractWorksTableViewController: UITableViewController {
 extension ContractWorksTableViewController {
    
     private func fetchWorks(by userID: Int) {
-        
         NetworkManager.shared.fetchQuery(
             by: userID,
             [Work].self,
             queryBy: .userId,
             API: .todos
         ) { result in
-            
             switch result {
             case .success(let works):
                 DispatchQueue.main.async {
@@ -117,5 +125,9 @@ extension ContractWorksTableViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func delete(work: Work) {
+        NetworkManager.shared.deleteRequest(work.id, API: .todos)
     }
 }

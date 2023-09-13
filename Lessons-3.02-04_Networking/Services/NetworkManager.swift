@@ -25,7 +25,6 @@ final class NetworkManager {
         API: API,
         completion: @escaping(Result<T, AFError>) -> Void
     ) {
-        
         guard var url = URL(string: Link.base.rawValue) else {
             completion(
                 .failure(
@@ -57,7 +56,6 @@ final class NetworkManager {
         API: API,
         _ completion: @escaping(Result<T, AFError>) -> Void
     ) {
-        
         guard var url = URL(string: Link.base.rawValue) else {
             completion(
                 .failure(
@@ -68,7 +66,6 @@ final class NetworkManager {
             )
             return
         }
-        
         url.append(path: API.rawValue)
         url.append(queryItems: [
             URLQueryItem(
@@ -95,8 +92,7 @@ final class NetworkManager {
         _ type: T,
         API: API,
         _ completion: @escaping (Result<T, AFError>
-        ) -> Void){
-        
+        ) -> Void) {
         guard var url = URL(string: Link.base.rawValue) else {
             completion(
                 .failure(
@@ -123,33 +119,16 @@ final class NetworkManager {
     
     // MARK: DELETE
     
-    func deleteRequest<T: Codable>(
-        _ type: T,
-        API: API,
-        _ completion: @escaping(Result<T, AFError>) -> Void
+    func deleteRequest(
+        _ type: Int,
+        API: API
     ) {
-        
         guard var url = URL(string: Link.base.rawValue) else {
-            completion(
-                .failure(
-                    AFError.invalidURL(
-                        url: Link.base.rawValue
-                    )
-                )
-            )
             return
         }
         url.append(path: API.rawValue)
+        url.append(path: String(type))
         
-        AF.request(url, method: .delete, parameters: type)
-            .validate()
-            .responseDecodable(of: T.self) { dataResponse in
-                switch dataResponse.result {
-                case .success(let data):
-                    completion(.success(data))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
+        AF.request(url, method: .delete, parameters: type).validate()
     }
 }

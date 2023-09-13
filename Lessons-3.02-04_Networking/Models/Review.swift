@@ -20,18 +20,42 @@ struct Review: Codable {
         self.body = body
     }
     
-    init(reviewData: [String: Any]) {
-        postId = reviewData["postId"] as? Int ?? 0
-        id = reviewData["id"] as? Int ?? 0
-        name = reviewData["name"] as? String ?? ""
-        email = reviewData["email"] as? String ?? ""
-        body = reviewData["body"] as? String ?? ""
+    init(reviewJP: ReviewJP) {
+        postId = Int(reviewJP.postId) ?? 0
+        id = reviewJP.id
+        name = reviewJP.name
+        email = reviewJP.email
+        body = reviewJP.body
     }
     
-    static func getReviews(from data: Any) -> [Review] {
-        guard let reviewData = data as? [[String: Any]] else {
-            return []
-        }
-        return reviewData.map { Review(reviewData: $0) }
+//    init(reviewData: [String: Any]) {
+//        postId = reviewData["postId"] as? Int ?? 0
+//        id = reviewData["id"] as? Int ?? 0
+//        name = reviewData["name"] as? String ?? ""
+//        email = reviewData["email"] as? String ?? ""
+//        body = reviewData["body"] as? String ?? ""
+//    }
+//    
+//    static func getReviews(from data: Any) -> [Review] {
+//        guard let reviewData = data as? [[String: Any]] else {
+//            return []
+//        }
+//        return reviewData.map { Review(reviewData: $0) }
+//    }
+}
+
+struct ReviewJP: Codable {
+    let postId: String
+    let id: Int
+    let name: String
+    let email: String
+    let body: String
+
+    init(review: Review) {
+        postId = String(review.postId)
+        id = review.id
+        name = review.name
+        email = review.email
+        body = review.body
     }
 }

@@ -28,7 +28,6 @@ final class ContractorInfoTableViewController: UITableViewController {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        
         let headerTitleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         
         switch section {
@@ -49,7 +48,6 @@ final class ContractorInfoTableViewController: UITableViewController {
         willDisplayHeaderView view: UIView,
         forSection section: Int
     ) {
-        
         view.backgroundColor = .gray
     }
     
@@ -70,7 +68,6 @@ final class ContractorInfoTableViewController: UITableViewController {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.contractorInfoTableViewCell,
             for: indexPath

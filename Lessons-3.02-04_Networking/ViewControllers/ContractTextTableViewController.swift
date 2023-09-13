@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol NewReviewViewControllerDelegate {
-    func addReview(_ newReview: Review)
+protocol INewReviewViewControllerDelegate {
+    func addReview(_ newReview: ReviewJP)
 }
 
 final class ContractTextTableViewController: UITableViewController {
@@ -39,7 +39,6 @@ final class ContractTextTableViewController: UITableViewController {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        
         let titleLabel = addHeaderTitleLabel(
             width: tableView.frame.width
         )
@@ -62,8 +61,11 @@ final class ContractTextTableViewController: UITableViewController {
         willDisplayHeaderView view: UIView,
         forSection section: Int
     ) {
-        
         view.backgroundColor = .gray
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table view data source
@@ -76,7 +78,6 @@ final class ContractTextTableViewController: UITableViewController {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        
         switch section {
         case 0:
             return 1
@@ -89,7 +90,6 @@ final class ContractTextTableViewController: UITableViewController {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.contractTextTableViewCell,
             for: indexPath
@@ -108,16 +108,32 @@ final class ContractTextTableViewController: UITableViewController {
         return cell
     }
     
-    // MARK: - IBAction
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            let deletedReview = reviews[indexPath.row]
+            delete(review: deletedReview)
+            reviews.remove(at: indexPath.row)
+        }
+    }
     
-    @IBAction func addReviewTapped(_ sender: UIBarButtonItem) {
-        //            let newContract = Contract(
-        //                userId: contractor.id,
-        //                id: 0,
-        //                title: newContractTitle,
-        //                body: newContractBody
-        //            )
-        //            addContract(newContract)
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let newReivewNavVC = segue
+            .destination as? UINavigationController else {
+            return
+        }
+        
+        guard let newReviewVC = newReivewNavVC
+            .topViewController as? NewReviewViewController else {
+                return
+            }
+        newReviewVC.delegate = self
+        newReviewVC.contract = contract
     }
 }
 // MARK: - Networking methods
@@ -125,7 +141,6 @@ final class ContractTextTableViewController: UITableViewController {
 extension ContractTextTableViewController {
     
     private func fetchReviews(by postID: Int) {
-        
         NetworkManager.shared.fetchQuery(
             by: postID,
             [Review].self,
@@ -143,25 +158,28 @@ extension ContractTextTableViewController {
             }
         }
     }
+    
+    private func delete(review: Review) {
+        NetworkManager.shared.deleteRequest(review.id, API: .comments)
+    }
 }
 
-extension ContractTextTableViewController: NewReviewViewControllerDelegate {
+extension ContractTextTableViewController: INewReviewViewControllerDelegate {
     
-    internal func addReview(_ newReview: Review) {
-        
+    internal func addReview(_ newReview: ReviewJP) {
         NetworkManager.shared.postRequest(
             newReview,
             API: .comments
         ) { result in
-            
             switch result {
             case .success(let serverReview):
+                let newReview = Review(reviewJP: serverReview)
                 DispatchQueue.main.async { [weak self] in
-                    self?.reviews.append(serverReview)
+                    self?.reviews.append(newReview)
                     print("Server returned: \(serverReview)")
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print(String(describing: error))
             }
         }
     }

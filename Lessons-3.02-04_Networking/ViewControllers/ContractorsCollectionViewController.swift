@@ -38,7 +38,6 @@ final class ContractorsCollectionViewController: UICollectionViewController {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        
         contractors.count
     }
     
@@ -46,7 +45,6 @@ final class ContractorsCollectionViewController: UICollectionViewController {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.contractorCollectionViewCell,
             for: indexPath
@@ -69,7 +67,6 @@ final class ContractorsCollectionViewController: UICollectionViewController {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        
         if let vc = UIStoryboard(
             name: Constants.mainStoryboard,
             bundle: nil
@@ -93,7 +90,6 @@ extension ContractorsCollectionViewController: UICollectionViewDelegateFlowLayou
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        
         CGSize(width: UIScreen.main.bounds.width - 48, height: 150)
     }
 }
@@ -103,12 +99,10 @@ extension ContractorsCollectionViewController: UICollectionViewDelegateFlowLayou
 extension ContractorsCollectionViewController {
     
     private func fetchUsers() {
-        
         NetworkManager.shared.fetch(
             [Contractor].self,
             API: .users
         ) { result in
-            
             switch result {
             case .success(let contractors):
                 DispatchQueue.main.async { [unowned self] in

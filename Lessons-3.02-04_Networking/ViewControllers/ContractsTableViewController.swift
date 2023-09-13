@@ -35,7 +35,6 @@ final class ContractsTableViewController: UITableViewController {
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        
         let headerTitleLabel = UILabel(
             frame: CGRect(x: 16,
                           y: 3,
@@ -57,7 +56,6 @@ final class ContractsTableViewController: UITableViewController {
         willDisplayHeaderView view: UIView,
         forSection section: Int
     ) {
-        
         view.backgroundColor = .gray
     }
     
@@ -65,7 +63,6 @@ final class ContractsTableViewController: UITableViewController {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        
         if let contractsNavVC = UIStoryboard(
             name: Constants.mainStoryboard,
             bundle: nil
@@ -92,7 +89,6 @@ final class ContractsTableViewController: UITableViewController {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        
         contracts.count
     }
     
@@ -101,7 +97,6 @@ final class ContractsTableViewController: UITableViewController {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.contractInfoTableViewCell,
             for: indexPath
@@ -119,11 +114,10 @@ final class ContractsTableViewController: UITableViewController {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-        
         if editingStyle == .delete {
             let deletedContract = contracts[indexPath.row]
-            deleteContract(deletedContract)
-            self.contracts.remove(at: indexPath.row)
+            delete(contract: deletedContract)
+            contracts.remove(at: indexPath.row)
             
         }
     }
@@ -134,14 +128,12 @@ final class ContractsTableViewController: UITableViewController {
 extension ContractsTableViewController {
     
     private func fetchContracts(by userID: Int) {
-        
         NetworkManager.shared.fetchQuery(
             by: userID,
             [Contract].self,
             queryBy: .userId,
             API: .posts
         ) { result in
-            
             switch result {
             case .success(let posts):
                 DispatchQueue.main.async {
@@ -153,20 +145,8 @@ extension ContractsTableViewController {
         }
     }
     
-    private func deleteContract(_ deletedContract: Contract) {
-        
-        NetworkManager.shared.deleteRequest(
-            deletedContract,
-            API: .posts
-        ) { result in
-            
-            switch result {
-            case .success(let serverContract):
-                print("Delete: \(serverContract)")
-            case .failure(let error):
-                print("No return: \(error.localizedDescription)")
-            }
-        }
+    private func delete(contract: Contract) {
+        NetworkManager.shared.deleteRequest(contract.id, API: .posts)
     }
 }
 

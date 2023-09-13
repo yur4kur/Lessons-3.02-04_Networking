@@ -20,3 +20,7 @@ enum QueryItem: String {
     case userId
     case postId
 }
+enum CommentHeaders: String {
+    case name = "Jane"
+    case email = "test@swiftbook.org"
+}
