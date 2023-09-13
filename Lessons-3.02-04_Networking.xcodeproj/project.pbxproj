@@ -89,6 +89,7 @@
 		6A778A1C2A83BA19006D96CE /* Lessons-3.02-04_Networking */ = {
 			isa = PBXGroup;
 			children = (
+				6A778A8B2AB1B66B006D96CE /* Helpers */,
 				6A778A552AA86743006D96CE /* Extensions */,
 				6A778A432A852BDF006D96CE /* Services */,
 				6A778A3E2A83CF34006D96CE /* Views */,
@@ -157,7 +158,6 @@
 			children = (
 				6A778A3F2A83CF6A006D96CE /* UserCollectionViewCell.swift */,
 				6A778A4B2AA61402006D96CE /* ContractorInfoTableViewFooter.swift */,
-				6A778A5A2AA9C10D006D96CE /* Constants.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				6A778A442A852BF4006D96CE /* NetworkManager.swift */,
-				6A778A4F2AA62298006D96CE /* NetworkHelpers.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -184,6 +183,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A778A8B2AB1B66B006D96CE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6A778A5A2AA9C10D006D96CE /* Constants.swift */,
+				6A778A4F2AA62298006D96CE /* NetworkHelpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

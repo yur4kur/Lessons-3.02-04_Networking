@@ -99,8 +99,7 @@ extension ContractorsCollectionViewController: UICollectionViewDelegateFlowLayou
 extension ContractorsCollectionViewController {
     
     private func fetchUsers() {
-        NetworkManager.shared.fetch(
-            [Contractor].self,
+        NetworkManager.shared.fetchContractors(
             API: .users
         ) { result in
             switch result {

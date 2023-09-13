@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContractorInfoTableViewFooter: UIView {
+final class ContractorInfoTableViewFooter: UIView {
 
     // MARK: - Public property
     

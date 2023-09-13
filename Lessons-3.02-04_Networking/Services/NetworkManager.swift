@@ -18,7 +18,7 @@ final class NetworkManager {
     
     private init() {}
     
-    // MARK: - Public methods (GET)
+    // MARK: - GET methods
     
     func fetch<T: Decodable>(
         _ type: T.Type,
@@ -86,7 +86,27 @@ final class NetworkManager {
             }
     }
     
-    // MARK: POST
+    func fetchContractors(
+        API: API,
+        _ completion: @escaping(Result<[Contractor], AFError>) -> Void
+    ) {
+        guard var url = URL(string: Link.base.rawValue) else { return }
+        url.append(path: API.rawValue)
+        
+        AF.request(url)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    let contractors = Contractor.getContractors(from: value)
+                    completion(.success(contractors))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    // MARK: - POST methods
     
     func postRequest<T: Codable>(
         _ type: T,
@@ -117,7 +137,7 @@ final class NetworkManager {
             }
     }
     
-    // MARK: DELETE
+    // MARK: - DELETE methods
     
     func deleteRequest(
         _ type: Int,
