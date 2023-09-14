@@ -7,12 +7,10 @@
 
 struct Constants {
     
-    // MARK: - Storyboards
-    
+    // MARK: Storyboards
     static let mainStoryboard = "Main"
     
-    // MARK: - ViewControllers
-    
+    // MARK: ViewControllers
     static let contractsNavVC = "ContractsNavVC"
     static let contractsVC = "ContractsVC"
     static let contractTabBarVC = "ContractTabBarVC"
@@ -22,15 +20,13 @@ struct Constants {
     static let newReviewNavVC = "NewReviewNavVC"
     static let newReviewVC = "NewReviewVC"
     
-    // MARK: - TableViewCells
-    
+    // MARK: TableViewCells
     static let contractorCollectionViewCell = "ContractorCell"
     static let contractorInfoTableViewCell = "ContractorInfoCell"
     static let contractInfoTableViewCell = "ContractInfoCell"
     static let contractTextTableViewCell = "ContractTextCell"
     static let contractWorksTableViewCell = "ContractWorksCell"
     
-    // MARK: - Initializer
-    
+    // MARK: Initializers
     private init() {}
 }

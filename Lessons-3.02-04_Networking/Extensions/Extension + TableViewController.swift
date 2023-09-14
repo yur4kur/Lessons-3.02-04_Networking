@@ -7,15 +7,18 @@
 
 import UIKit
 
-func addHeaderTitleLabel(width: CGFloat) -> UILabel {
-    let headerTitleLabel = UILabel(
-        frame: CGRect(x: 16,
-                      y: 3,
-                      width: width,
-                      height: 20))
-    
-    headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-    headerTitleLabel.textColor = .white
-    
-    return headerTitleLabel
+// MARK: - Table header label
+extension UITableViewController {
+    func addHeaderTitleLabel(width: CGFloat) -> UILabel {
+        let headerTitleLabel = UILabel(
+            frame: CGRect(x: 16,
+                          y: 3,
+                          width: width,
+                          height: 20))
+        
+        headerTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerTitleLabel.textColor = .white
+        
+        return headerTitleLabel
+    }
 }

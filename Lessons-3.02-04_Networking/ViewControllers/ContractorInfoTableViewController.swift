@@ -9,12 +9,10 @@ import UIKit
 
 final class ContractorInfoTableViewController: UITableViewController {
     
-    // MARK: - Public property
-    
+    // MARK: Public property
     var contractor: Contractor!
     
-    // MARK: - Override methods
-    
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,14 +20,27 @@ final class ContractorInfoTableViewController: UITableViewController {
         addFooter()
     }
     
-    // MARK: Table view delegate
-    
-    override func tableView(
-        _ tableView: UITableView,
-        viewForHeaderInSection section: Int
-    ) -> UIView? {
+    // MARK: Private methods
+    private func addFooter() {
+        let tableViewFooter =  ContractorInfoTableViewFooter(
+            frame: CGRect(x: 0,
+                          y: 0,
+                          width: self.view.frame.width,
+                          height: 200)
+        )
+        tableViewFooter.showContractsButton
+            .addTarget(self,
+                       action: #selector(showContractsTapped),
+                       for: .touchUpInside)
+        self.tableView.tableFooterView = tableViewFooter
+    }
+}
+
+// MARK: - Table view delegate
+extension ContractorInfoTableViewController {
+    override func tableView(_ tableView: UITableView,
+                            viewForHeaderInSection section: Int) -> UIView? {
         let headerTitleLabel = addHeaderTitleLabel(width: tableView.frame.width)
-        
         switch section {
         case 0:
             headerTitleLabel.text = "Contact details"
@@ -39,45 +50,39 @@ final class ContractorInfoTableViewController: UITableViewController {
         
         let contentView = UIView()
         contentView.addSubview(headerTitleLabel)
-        
         return contentView
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        willDisplayHeaderView view: UIView,
-        forSection section: Int
-    ) {
+    override func tableView(_ tableView: UITableView,
+                            willDisplayHeaderView view: UIView,
+                            forSection section: Int) {
         view.backgroundColor = .gray
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    // MARK: Table view data source
-    
+}
+
+// MARK: - Table view data source
+extension ContractorInfoTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         3
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.contractorInfoTableViewCell,
-            for: indexPath
-        )
-        var cellContent = cell.defaultContentConfiguration()
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView
+            .dequeueReusableCell(withIdentifier: Constants.contractorInfoTableViewCell,
+                                 for: indexPath)
         
+        var cellContent = cell.defaultContentConfiguration()
         switch indexPath.section {
         case 0:
             switch indexPath.row {
@@ -103,53 +108,26 @@ final class ContractorInfoTableViewController: UITableViewController {
         }
         
         cell.contentConfiguration = cellContent
-        
         return cell
     }
-    
-    // MARK: - Private methods
-    
-    private func addFooter() {
-        let tableViewFooter =  ContractorInfoTableViewFooter(
-            frame: CGRect(
-                x: 0,
-                y: 0,
-                width: self.view.frame.width,
-                height: 200
-            )
-        )
-        tableViewFooter.showContractsButton.addTarget(
-            self,
-            action: #selector(showContractsTapped),
-            for: .touchUpInside
-        )
-        self.tableView.tableFooterView = tableViewFooter
-    }
-    
+}
+
+// MARK: - Navigation
+extension ContractorInfoTableViewController {
     @objc private func showContractsTapped () {
-        if let tabBarVC = UIStoryboard(
-            name: Constants.mainStoryboard,
-            bundle: nil
-        ).instantiateViewController(
-            identifier: Constants.contractTabBarVC
-        ) as? UITabBarController {
+        if let tabBarVC = UIStoryboard(name: Constants.mainStoryboard,
+                                       bundle: nil)
+            .instantiateViewController(identifier: Constants.contractTabBarVC) as? UITabBarController {
             
             guard let contractsVC = tabBarVC.viewControllers?
-                .first as? ContractsTableViewController else {
-                return
-            }
+                .first as? ContractsTableViewController else { return }
             contractsVC.contractor = contractor
             
             guard let worksVC = tabBarVC.viewControllers?
-                .last as? ContractWorksTableViewController else {
-                return
-            }
+                .last as? ContractWorksTableViewController else { return }
             worksVC.contractor = contractor
             
-            navigationController?.pushViewController(
-                tabBarVC,
-                animated: true
-            )
+            navigationController?.pushViewController(tabBarVC, animated: true)
         }
     }
 }

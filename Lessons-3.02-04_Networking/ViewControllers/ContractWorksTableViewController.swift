@@ -9,72 +9,60 @@ import UIKit
 
 final class ContractWorksTableViewController: UITableViewController {
     
-    // MARK: - Public property
-    
+    // MARK: Public properties
     var contractor: Contractor!
     
-    // MARK: - Private property
-    
+    // MARK: Private properties
     private var works: [Work] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    // MARK: - Override methods
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchWorks(by: contractor.id)
     }
-    
-    // MARK: Table view delegate
-    
-    override func tableView(
-        _ tableView: UITableView,
-        viewForHeaderInSection section: Int
-    ) -> UIView? {
+}
+
+// MARK: - Table view delegate
+extension ContractWorksTableViewController {
+    override func tableView(_ tableView: UITableView,
+                            viewForHeaderInSection section: Int) -> UIView? {
         let titleLabel = addHeaderTitleLabel(width: tableView.frame.width)
         titleLabel.text = "Agreed Works Status"
         
         let contentView = UIView()
         contentView.addSubview(titleLabel)
-        
         return contentView
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        willDisplayHeaderView view: UIView,
-        forSection section: Int
-    ) {
+    override func tableView(_ tableView: UITableView,
+                            willDisplayHeaderView view: UIView,
+                            forSection section: Int) {
         view.backgroundColor = .gray
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    // MARK: Table view data source
-    
-    override func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
+}
+
+// MARK: Table view data source
+extension ContractWorksTableViewController {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         works.count
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: Constants.contractWorksTableViewCell,
-            for: indexPath
-        )
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView
+            .dequeueReusableCell(withIdentifier: Constants.contractWorksTableViewCell,
+                                 for: indexPath)
         
         var cellContent = cell.defaultContentConfiguration()
         cellContent.text = works[indexPath.row].title.capitalized
@@ -89,33 +77,28 @@ final class ContractWorksTableViewController: UITableViewController {
         }()
         
         cell.contentConfiguration = cellContent
-        
         return cell
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                let deletedWork = works[indexPath.row]
-                delete(work: deletedWork)
-                works.remove(at: indexPath.row)
-            }
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedWork = works[indexPath.row]
+            delete(work: deletedWork)
+            works.remove(at: indexPath.row)
+        }
     }
 }
 
 // MARK: - Networking methods
-
 extension ContractWorksTableViewController {
-   
+    
     private func fetchWorks(by userID: Int) {
-        NetworkManager.shared.fetchQuery(
-            by: userID,
-            [Work].self,
-            queryBy: .userId,
-            API: .todos
-        ) { result in
+        NetworkManager.shared.fetchQuery(by: userID,
+                                         [Work].self,
+                                         queryBy: .userId,
+                                         resource: .todos) { result in
             switch result {
             case .success(let works):
                 DispatchQueue.main.async {
@@ -128,6 +111,6 @@ extension ContractWorksTableViewController {
     }
     
     private func delete(work: Work) {
-        NetworkManager.shared.deleteRequest(work.id, API: .todos)
+        NetworkManager.shared.deleteRequest(work.id, resource: .todos)
     }
 }

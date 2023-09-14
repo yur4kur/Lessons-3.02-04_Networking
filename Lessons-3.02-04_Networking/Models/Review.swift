@@ -5,6 +5,7 @@
 //  Created by Юрий Куринной on 09.08.2023.
 //
 
+// MARK: - Review
 struct Review: Codable {
     let postId: Int
     let id: Int
@@ -12,6 +13,7 @@ struct Review: Codable {
     let email: String
     let body: String
     
+    // MARK: Initializers
     init(postId: Int, id: Int, name: String, email: String, body: String) {
         self.postId = postId
         self.id = id
@@ -29,6 +31,7 @@ struct Review: Codable {
     }
 }
 
+// MARK: - ReviewJP
 struct ReviewJP: Codable {
     let postId: String
     let id: Int
@@ -36,6 +39,7 @@ struct ReviewJP: Codable {
     let email: String
     let body: String
 
+    // MARK: Initializers
     init(review: Review) {
         postId = String(review.postId)
         id = review.id

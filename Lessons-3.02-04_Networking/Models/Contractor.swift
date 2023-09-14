@@ -5,6 +5,7 @@
 //  Created by Юрий Куринной on 09.08.2023.
 //
 
+// MARK: - Contractor
 struct Contractor: Decodable {
     let id: Int
     let name: String
@@ -14,42 +15,7 @@ struct Contractor: Decodable {
     let phone: String
     let website: String
     
-    struct Address: Decodable {
-        let street: String
-        let city: String
-        let zipcode: String
-        
-        init(street: String, city: String, zipcode: String) {
-            self.street = street
-            self.city = city
-            self.zipcode = zipcode
-        }
-        
-        init(address: [String: Any]) {
-            street = address["street"] as? String ?? ""
-            city = address["city"] as? String ?? ""
-            zipcode = address["zipcode"] as? String ?? ""
-        }
-    }
-    
-    struct Company: Decodable {
-        let name: String
-        let catchPhrase: String
-        let bs: String
-        
-        init(name: String, catchPhrase: String, bs: String) {
-            self.name = name
-            self.catchPhrase = catchPhrase
-            self.bs = bs
-        }
-        
-        init(company: [String: Any]) {
-            name = company["name"] as? String ?? ""
-            catchPhrase = company["catchPhrase"] as? String ?? ""
-            bs = company["bs"] as? String ?? ""
-        }
-    }
-    
+    // MARK: Initializers
     init(id: Int, name: String, email: String, address: Address, company: Company, phone: String, website: String) {
         self.id = id
         self.name = name
@@ -74,10 +40,55 @@ struct Contractor: Decodable {
         website = contractorData["website"] as? String ?? ""
     }
     
+    // MARK: Static method
     static func getContractors(from data: Any) -> [Contractor] {
         guard let contractorData = data as? [[String: Any]] else {
             return []
         }
         return contractorData.map { Contractor(contractorData: $0) }
+    }
+}
+
+// MARK: - Address
+extension Contractor {
+    struct Address: Decodable {
+        let street: String
+        let city: String
+        let zipcode: String
+        
+        // MARK: Initializers
+        init(street: String, city: String, zipcode: String) {
+            self.street = street
+            self.city = city
+            self.zipcode = zipcode
+        }
+        
+        init(address: [String: Any]) {
+            street = address["street"] as? String ?? ""
+            city = address["city"] as? String ?? ""
+            zipcode = address["zipcode"] as? String ?? ""
+        }
+    }
+}
+
+// MARK: - Company
+extension Contractor {
+    struct Company: Decodable {
+        let name: String
+        let catchPhrase: String
+        let bs: String
+        
+        // MARK: Initializers
+        init(name: String, catchPhrase: String, bs: String) {
+            self.name = name
+            self.catchPhrase = catchPhrase
+            self.bs = bs
+        }
+        
+        init(company: [String: Any]) {
+            name = company["name"] as? String ?? ""
+            catchPhrase = company["catchPhrase"] as? String ?? ""
+            bs = company["bs"] as? String ?? ""
+        }
     }
 }

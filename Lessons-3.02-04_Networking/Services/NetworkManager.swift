@@ -10,21 +10,16 @@ import Alamofire
 
 final class NetworkManager {
     
-    // MARK: - Static property
-    
+    // MARK: Static property
     static let shared = NetworkManager()
     
-    // MARK: - Initializer
-    
+    // MARK: Initializer
     private init() {}
     
-    // MARK: - GET methods
-    
-    func fetch<T: Decodable>(
-        _ type: T.Type,
-        API: API,
-        completion: @escaping(Result<T, AFError>) -> Void
-    ) {
+    // MARK: GET methods
+    func fetch<T: Decodable>(_ type: T.Type,
+                             resource: RequestResource,
+                             completion: @escaping(Result<T, AFError>) -> Void) {
         guard var url = URL(string: Link.base.rawValue) else {
             completion(
                 .failure(
@@ -35,7 +30,7 @@ final class NetworkManager {
             )
             return
         }
-        url.append(path: API.rawValue)
+        url.append(path: resource.rawValue)
         
         AF.request(url)
             .validate()
@@ -49,30 +44,18 @@ final class NetworkManager {
             }
     }
     
-    func fetchQuery<T: Decodable>(
-        by id: Int,
-        _ type: T.Type,
-        queryBy item: QueryItem,
-        API: API,
-        _ completion: @escaping(Result<T, AFError>) -> Void
-    ) {
+    // MARK: Fetch with query
+    func fetchQuery<T: Decodable>(by id: Int,
+                                  _ type: T.Type,
+                                  queryBy item: QueryItem,
+                                  resource: RequestResource,
+                                  _ completion: @escaping(Result<T, AFError>) -> Void) {
         guard var url = URL(string: Link.base.rawValue) else {
-            completion(
-                .failure(
-                    AFError.invalidURL(
-                        url: Link.base.rawValue
-                    )
-                )
-            )
+            completion(.failure(AFError.invalidURL(url: Link.base.rawValue)))
             return
         }
-        url.append(path: API.rawValue)
-        url.append(queryItems: [
-            URLQueryItem(
-                name: item.rawValue,
-                value: "\(id)")
-        ]
-        )
+        url.append(path: resource.rawValue)
+        url.append(queryItems: [URLQueryItem(name: item.rawValue,value: "\(id)")])
         
         AF.request(url)
             .validate()
@@ -86,12 +69,11 @@ final class NetworkManager {
             }
     }
     
-    func fetchContractors(
-        API: API,
-        _ completion: @escaping(Result<[Contractor], AFError>) -> Void
-    ) {
+    // MARK: Fetch with responseJP
+    func fetchContractors(resource: RequestResource,
+                          _ completion: @escaping(Result<[Contractor], AFError>) -> Void) {
         guard var url = URL(string: Link.base.rawValue) else { return }
-        url.append(path: API.rawValue)
+        url.append(path: resource.rawValue)
         
         AF.request(url)
             .validate()
@@ -106,24 +88,15 @@ final class NetworkManager {
             }
     }
     
-    // MARK: - POST methods
-    
-    func postRequest<T: Codable>(
-        _ type: T,
-        API: API,
-        _ completion: @escaping (Result<T, AFError>
-        ) -> Void) {
+    // MARK: POST methods
+    func postRequest<T: Codable>(_ type: T,
+                                 resource: RequestResource,
+                                 _ completion: @escaping (Result<T, AFError>) -> Void) {
         guard var url = URL(string: Link.base.rawValue) else {
-            completion(
-                .failure(
-                    AFError.invalidURL(
-                        url: Link.base.rawValue
-                    )
-                )
-            )
+            completion(.failure(AFError.invalidURL(url: Link.base.rawValue)))
             return
         }
-        url.append(path: API.rawValue)
+        url.append(path: resource.rawValue)
         
         AF.request(url, method: .post, parameters: type)
             .validate()
@@ -137,16 +110,12 @@ final class NetworkManager {
             }
     }
     
-    // MARK: - DELETE methods
-    
-    func deleteRequest(
-        _ type: Int,
-        API: API
-    ) {
+    // MARK: DELETE methods
+    func deleteRequest(_ type: Int, resource: RequestResource) {
         guard var url = URL(string: Link.base.rawValue) else {
             return
         }
-        url.append(path: API.rawValue)
+        url.append(path: resource.rawValue)
         url.append(path: String(type))
         
         AF.request(url, method: .delete, parameters: type).validate()
