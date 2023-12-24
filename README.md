@@ -14,4 +14,5 @@
 - Data parsing: Segue, Delegate
 - VCs: UICollectionViewController, UITableViewController
 - Networking: Alamofire
+- JSON hand-parsing
 
